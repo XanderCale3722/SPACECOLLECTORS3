@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block titulo %}Sky Explorer{% endblock %}
+
+{% block contenido %}
+<section class="pagina">
+
+    <!-- Encabezado de la página -->
+    <div class="pagina-encabezado">
+        <!-- Ruta de navegación -->
+        <div class="pagina-breadcrumb">
+            <a href="{{ url_for('inicio') }}">Home</a>
+            <i class="fas fa-chevron-right" style="font-size:10px; opacity:0.5;"></i>
+            <span>Sky Explorer</span>
+        </div>
+
+        <!-- Título con ícono -->
+        <h1 class="pagina-titulo">
+            <span class="icono-pagina"><i class="fas fa-binoculars"></i></span>
+            Sky Explorer
+        </h1>
+        <p class="pagina-descripcion">
+            Images and coordinates of observed space objects.
+            Visualize the location of stars, galaxies, and other celestial bodies
+            captured by sky survey instruments.
+        </p>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="pagina-contenido">
+
+        <!-- Aviso: datos pendientes de la NASA -->
+        <div class="aviso-pendiente animar">
+            <i class="fas fa-clock"></i>
+            <span>
+                <strong>Data coming soon:</strong> Images and coordinates will be added
+                in the next 4 days when NASA releases the dataset.
+                Leave the placeholder boxes below and fill them when the data arrives.
+            </span>
+        </div>
+
+
+        <!-- =======================================================
+             SECCIÓN 1: GALERÍA DE IMÁGENES
+             -------------------------------------------------------
+             AQUÍ VAN LAS IMÁGENES DEL TELESCOPIO / SKY SURVEY
+             Para añadir una imagen real, reemplaza el bloque
+             <div class="placeholder-box"> con:
+             <img src="{{ url_for('static', filename='img/tu_imagen.jpg') }}"
+                  alt="Descripción" style="width:100%; border-radius:12px;">
+             ======================================================= -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-images" style="color:var(--cyan); margin-right:10px;"></i>
+            Image Gallery
+        </h2>
+
+        <div class="grid-contenido grid-3">
+            <!-- IMAGEN 1 — reemplazar cuando lleguen los datos -->
+            <div class="placeholder-box animar">
+                <i class="fas fa-image"></i>
+                <span class="ph-titulo">Sky Image 1</span>
+                <span class="ph-nota">Add telescope image here</span>
+            </div>
+
+            <!-- IMAGEN 2 -->
+            <div class="placeholder-box animar">
+                <i class="fas fa-image"></i>
+                <span class="ph-titulo">Sky Image 2</span>
+                <span class="ph-nota">Add telescope image here</span>
+            </div>
+
+            <!-- IMAGEN 3 -->
+            <div class="placeholder-box animar">
+                <i class="fas fa-image"></i>
+                <span class="ph-titulo">Sky Image 3</span>
+                <span class="ph-nota">Add telescope image here</span>
+            </div>
+        </div>
+
+
+        <!-- =======================================================
+             SECCIÓN 2: TABLA DE COORDENADAS
+             -------------------------------------------------------
+             AQUÍ VAN LAS COORDENADAS (RA, DEC, Distancia, etc.)
+             Para añadir datos, reemplaza la fila vacía con:
+             <tr>
+               <td>Nombre del objeto</td>
+               <td>12h 30m 49s</td>
+               <td>+41° 16' 09"</td>
+               <td>2.537 Mly</td>
+               <td>Galaxia espiral</td>
+             </tr>
+             ======================================================= -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-crosshairs" style="color:var(--cyan); margin-right:10px;"></i>
+            Object Coordinates
+        </h2>
+
+        <table class="tabla-datos animar">
+            <thead>
+                <tr>
+                    <th>Object Name</th>
+                    <th>Right Ascension (RA)</th>
+                    <th>Declination (DEC)</th>
+                    <th>Distance</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- AÑADIR FILAS DE DATOS AQUÍ cuando lleguen los datos -->
+                <tr>
+                    <td colspan="5" class="tabla-vacia">
+                        <i class="fas fa-database"></i>
+                        Coordinate data pending...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div><!-- /pagina-contenido -->
+</section>
+{% endblock %}

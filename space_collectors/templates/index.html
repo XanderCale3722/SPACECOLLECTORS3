@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Home{% endblock %}
+
+{% block contenido %}
+
+<!-- ===========================================================
+     SECCIÓN HERO
+     Esta sección ocupa toda la pantalla al abrir la página.
+     El usuario ve esto primero, antes de hacer scroll.
+     =========================================================== -->
+<section class="hero" id="inicio">
+
+    <!-- Efecto de brillo / nebulosa en el centro del fondo -->
+    <div class="hero-glow"></div>
+
+    <!-- Contenido central del hero -->
+    <div class="hero-contenido">
+
+        <!-- Badge: etiqueta pequeña en la parte superior -->
+        <div class="badge">
+            <i class="fas fa-rocket"></i>
+            NASA Space Apps Challenge 2026
+        </div>
+
+        <!-- Título principal -->
+        <!-- Las clases texto-cyan y texto-purple dan el gradiente de color -->
+        <h1 class="hero-titulo">
+            Collecting <span class="texto-cyan">cosmic</span><br>
+            <span class="texto-purple">waves</span> from the universe
+        </h1>
+
+        <!-- Descripción / subtítulo -->
+        <p class="hero-descripcion">
+            Explore electromagnetic signals, spectral data, and temporal changes
+            from celestial bodies. A visual platform for collecting and understanding
+            the universe's hidden languages.
+        </p>
+
+        <!-- Botones de acción -->
+        <div class="hero-botones">
+            <!-- Este botón baja suavemente a la sección de tarjetas -->
+            <!-- El id="btnExplorar" es usado por el JavaScript (main.js) -->
+            <a href="#secciones" class="btn btn-primario" id="btnExplorar">
+                <i class="fas fa-compass"></i>
+                Explore sections
+            </a>
+
+            <!-- Segundo botón: lleva a la página del equipo -->
+            <a href="{{ url_for('about') }}" class="btn btn-secundario">
+                <i class="fas fa-users"></i>
+                Our team
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Indicador de scroll: flecha animada que invita a bajar -->
+    <div class="scroll-indicador">
+        <i class="fas fa-chevron-down"></i>
+        <span>Scroll to explore</span>
+    </div>
+
+</section>
+
+
+<!-- ===========================================================
+     SECCIÓN DE TARJETAS
+     Aparece cuando el usuario desliza hacia abajo.
+     Cada tarjeta lleva a una sección diferente del proyecto.
+     =========================================================== -->
+<section class="secciones" id="secciones">
+    <div class="contenedor">
+
+        <!-- Encabezado de la sección -->
+        <div class="secciones-encabezado">
+            <h2>Choose your destination</h2>
+            <p>Select a section to start exploring the universe's data</p>
+        </div>
+
+        <!-- Grid de tarjetas: 2 columnas × 3 filas = 6 tarjetas -->
+        <!-- Cada tarjeta es un enlace <a> que navega a su página -->
+        <!-- data-color define el color de acento al hacer hover -->
+        <div class="tarjetas-grid">
+
+            <!-- TARJETA 1: Home / Presentación -->
+            <a href="{{ url_for('inicio') }}" class="tarjeta" data-color="cyan">
+                <div class="tarjeta-icono">
+                    <i class="fas fa-house"></i>
+                </div>
+                <h3 class="tarjeta-titulo">Home</h3>
+                <p class="tarjeta-subtitulo">Presentación</p>
+                <div class="tarjeta-flecha">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- TARJETA 2: Sky Explorer -->
+            <a href="{{ url_for('sky_explorer') }}" class="tarjeta" data-color="blue">
+                <div class="tarjeta-icono">
+                    <i class="fas fa-binoculars"></i>
+                </div>
+                <h3 class="tarjeta-titulo">Sky Explorer</h3>
+                <p class="tarjeta-subtitulo">Imágenes y coordenadas</p>
+                <div class="tarjeta-flecha">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- TARJETA 3: Spectral Explorer -->
+            <a href="{{ url_for('spectral_explorer') }}" class="tarjeta" data-color="purple">
+                <div class="tarjeta-icono">
+                    <i class="fas fa-wave-square"></i>
+                </div>
+                <h3 class="tarjeta-titulo">Spectral Explorer</h3>
+                <p class="tarjeta-subtitulo">Espectros</p>
+                <div class="tarjeta-flecha">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- TARJETA 4: Time Explorer -->
+            <a href="{{ url_for('time_explorer') }}" class="tarjeta" data-color="orange">
+                <div class="tarjeta-icono">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3 class="tarjeta-titulo">Time Explorer</h3>
+                <p class="tarjeta-subtitulo">Cambios temporales</p>
+                <div class="tarjeta-flecha">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- TARJETA 5: Space Library -->
+            <a href="{{ url_for('space_library') }}" class="tarjeta" data-color="green">
+                <div class="tarjeta-icono">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h3 class="tarjeta-titulo">Space Library</h3>
+                <p class="tarjeta-subtitulo">Biblioteca</p>
+                <div class="tarjeta-flecha">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- TARJETA 6: About Us -->
+            <a href="{{ url_for('about') }}" class="tarjeta" data-color="pink">
+                <div class="tarjeta-icono">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="tarjeta-titulo">About Us</h3>
+                <p class="tarjeta-subtitulo">Nuestro equipo</p>
+                <div class="tarjeta-flecha">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+        </div><!-- /tarjetas-grid -->
+    </div><!-- /contenedor -->
+</section>
+
+{% endblock %}

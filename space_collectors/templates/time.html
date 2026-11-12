@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block titulo %}Time Explorer{% endblock %}
+
+{% block contenido %}
+<section class="pagina">
+
+    <div class="pagina-encabezado">
+        <div class="pagina-breadcrumb">
+            <a href="{{ url_for('inicio') }}">Home</a>
+            <i class="fas fa-chevron-right" style="font-size:10px; opacity:0.5;"></i>
+            <span>Time Explorer</span>
+        </div>
+        <h1 class="pagina-titulo">
+            <span class="icono-pagina" style="background:rgba(245,158,11,0.1); border-color:rgba(245,158,11,0.2); color:#fbbf24;">
+                <i class="fas fa-clock"></i>
+            </span>
+            Time Explorer
+        </h1>
+        <p class="pagina-descripcion">
+            Temporal changes in cosmic signals and radiation patterns.
+            Track how electromagnetic emissions evolve over time across
+            different celestial bodies and events.
+        </p>
+    </div>
+
+    <div class="pagina-contenido">
+
+        <div class="aviso-pendiente animar">
+            <i class="fas fa-clock"></i>
+            <span>
+                <strong>Data coming soon:</strong> Temporal signal data and timelines
+                will be added in 4 days when NASA releases the dataset.
+            </span>
+        </div>
+
+
+        <!-- =======================================================
+             SECCIÓN 1: GRÁFICA DE EVOLUCIÓN TEMPORAL
+             -------------------------------------------------------
+             AQUÍ VA LA GRÁFICA DE CÓMO CAMBIA LA SEÑAL EN EL TIEMPO
+             Ideal para gráficas de Matplotlib o Plotly exportadas
+             como imagen PNG o HTML interactivo.
+             ======================================================= -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-chart-line" style="color:#fbbf24; margin-right:10px;"></i>
+            Signal Evolution Over Time
+        </h2>
+
+        <div class="grid-contenido animar">
+            <div class="placeholder-box placeholder-grande">
+                <i class="fas fa-chart-line"></i>
+                <span class="ph-titulo">Temporal Signal Chart</span>
+                <span class="ph-nota">
+                    Insert time-series graph here (e.g., intensity vs. date)
+                </span>
+            </div>
+        </div>
+
+
+        <!-- =======================================================
+             SECCIÓN 2: TABLA DE OBSERVACIONES TEMPORALES
+             -------------------------------------------------------
+             AQUÍ VAN LOS REGISTROS DE CADA OBSERVACIÓN CON SU FECHA
+             ======================================================= -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-calendar-days" style="color:#fbbf24; margin-right:10px;"></i>
+            Observation Log
+        </h2>
+
+        <table class="tabla-datos animar">
+            <thead>
+                <tr>
+                    <th>Date (UTC)</th>
+                    <th>Object</th>
+                    <th>Signal Type</th>
+                    <th>Intensity</th>
+                    <th>Duration</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- AÑADIR OBSERVACIONES AQUÍ -->
+                <tr>
+                    <td colspan="6" class="tabla-vacia">
+                        <i class="fas fa-database"></i>
+                        Temporal observation data pending...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <!-- =======================================================
+             SECCIÓN 3: COMPARACIÓN ANTES / DESPUÉS
+             -------------------------------------------------------
+             AQUÍ VAN DOS IMÁGENES DEL MISMO OBJETO EN DISTINTOS MOMENTOS
+             ======================================================= -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-arrows-left-right" style="color:#fbbf24; margin-right:10px;"></i>
+            Before / After Comparison
+        </h2>
+
+        <div class="grid-contenido grid-2">
+            <div class="placeholder-box animar">
+                <i class="fas fa-image"></i>
+                <span class="ph-titulo">Observation — Early Date</span>
+                <span class="ph-nota">Add image (date: TBD)</span>
+            </div>
+            <div class="placeholder-box animar">
+                <i class="fas fa-image"></i>
+                <span class="ph-titulo">Observation — Recent Date</span>
+                <span class="ph-nota">Add image (date: TBD)</span>
+            </div>
+        </div>
+
+    </div><!-- /pagina-contenido -->
+</section>
+{% endblock %}

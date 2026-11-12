@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Home{% endblock %} | Space Collectors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block estilos_extra %}{% endblock %}
+</head>
+<body>
+    <div id="estrellas" class="fondo-estrellas"></div>
+    <nav class="navbar">
+        <a href="{{ url_for('inicio') }}" class="navbar-marca">
+            <i class="fas fa-satellite-dish"></i>
+            SPACE COLLECTORS
+        </a>
+        <button class="navbar-toggle" id="navToggle" aria-label="Open menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="navbar-links" id="navLinks">
+            <a href="{{ url_for('inicio') }}" class="nav-link {% if request.endpoint == 'inicio' %}activo{% endif %}">Home</a>
+            <a href="{{ url_for('sky_explorer') }}" class="nav-link {% if request.endpoint == 'sky_explorer' %}activo{% endif %}">Sky Explorer</a>
+            <a href="{{ url_for('spectral_explorer') }}" class="nav-link {% if request.endpoint == 'spectral_explorer' %}activo{% endif %}">Spectral</a>
+            <a href="{{ url_for('time_explorer') }}" class="nav-link {% if request.endpoint == 'time_explorer' %}activo{% endif %}">Time</a>
+            <a href="{{ url_for('space_library') }}" class="nav-link {% if request.endpoint == 'space_library' %}activo{% endif %}">Library</a>
+            <a href="{{ url_for('about') }}" class="nav-link {% if request.endpoint == 'about' %}activo{% endif %}">About Us</a>
+        </div>
+    </nav>
+    {% block contenido %}{% endblock %}
+    <footer class="footer">
+        <p><i class="fas fa-satellite-dish"></i>&nbsp;Space Collectors &mdash; NASA Space Apps Challenge 2026</p>
+        <p class="footer-sub">Collecting cosmic waves from the universe</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts_extra %}{% endblock %}
+</body>
+</html>

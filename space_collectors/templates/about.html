@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% block titulo %}About Us{% endblock %}
+
+{% block contenido %}
+<section class="pagina">
+
+    <div class="pagina-encabezado">
+        <div class="pagina-breadcrumb">
+            <a href="{{ url_for('inicio') }}">Home</a>
+            <i class="fas fa-chevron-right" style="font-size:10px; opacity:0.5;"></i>
+            <span>About Us</span>
+        </div>
+        <h1 class="pagina-titulo">
+            <span class="icono-pagina" style="background:rgba(236,72,153,0.1); border-color:rgba(236,72,153,0.2); color:#f472b6;">
+                <i class="fas fa-users"></i>
+            </span>
+            About Us
+        </h1>
+        <p class="pagina-descripcion">
+            Meet the Space Collectors team competing in the
+            NASA Space Apps Challenge 2026.
+        </p>
+    </div>
+
+    <div class="pagina-contenido">
+
+        <!-- =======================================================
+             SECCIÓN 1: TARJETAS DEL EQUIPO (6 integrantes)
+             -------------------------------------------------------
+             Para personalizar cada integrante:
+             1. Cambia "[Nombre]" por el nombre real
+             2. Cambia "[Rol]" por el rol (ej: "Data Analyst", "Designer")
+             3. Para añadir foto real, reemplaza el <div class="miembro-foto">
+                con:
+                <div class="miembro-foto">
+                    <img src="{{ url_for('static', filename='img/nombre.jpg') }}"
+                         alt="Nombre del integrante">
+                </div>
+             ======================================================= -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-id-card" style="color:#f472b6; margin-right:10px;"></i>
+            Our Team
+        </h2>
+
+        <div class="equipo-grid">
+
+            <!-- INTEGRANTE 1 -->
+            <div class="miembro-card animar">
+                <div class="miembro-foto">
+                    <!-- Reemplazar con: <img src="..." alt="Nombre"> -->
+                    <i class="fas fa-user"></i>
+                </div>
+                <p class="miembro-nombre">[Nombre 1]</p>
+                <p class="miembro-rol">[Rol / Especialidad]</p>
+            </div>
+
+            <!-- INTEGRANTE 2 -->
+            <div class="miembro-card animar">
+                <div class="miembro-foto">
+                    <i class="fas fa-user"></i>
+                </div>
+                <p class="miembro-nombre">[Nombre 2]</p>
+                <p class="miembro-rol">[Rol / Especialidad]</p>
+            </div>
+
+            <!-- INTEGRANTE 3 -->
+            <div class="miembro-card animar">
+                <div class="miembro-foto">
+                    <i class="fas fa-user"></i>
+                </div>
+                <p class="miembro-nombre">[Nombre 3]</p>
+                <p class="miembro-rol">[Rol / Especialidad]</p>
+            </div>
+
+            <!-- INTEGRANTE 4 -->
+            <div class="miembro-card animar">
+                <div class="miembro-foto">
+                    <i class="fas fa-user"></i>
+                </div>
+                <p class="miembro-nombre">[Nombre 4]</p>
+                <p class="miembro-rol">[Rol / Especialidad]</p>
+            </div>
+
+            <!-- INTEGRANTE 5 -->
+            <div class="miembro-card animar">
+                <div class="miembro-foto">
+                    <i class="fas fa-user"></i>
+                </div>
+                <p class="miembro-nombre">[Nombre 5]</p>
+                <p class="miembro-rol">[Rol / Especialidad]</p>
+            </div>
+
+            <!-- INTEGRANTE 6 -->
+            <div class="miembro-card animar">
+                <div class="miembro-foto">
+                    <i class="fas fa-user"></i>
+                </div>
+                <p class="miembro-nombre">[Nombre 6]</p>
+                <p class="miembro-rol">[Rol / Especialidad]</p>
+            </div>
+
+        </div><!-- /equipo-grid -->
+
+
+        <!-- =======================================================
+             SECCIÓN 2: SOBRE EL PROYECTO
+             -------------------------------------------------------
+             AQUÍ VA LA DESCRIPCIÓN DEL PROYECTO Y SU PROPUESTA
+             ======================================================= -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-rocket" style="color:#f472b6; margin-right:10px;"></i>
+            About the Project
+        </h2>
+
+        <div class="bloque-texto animar">
+            <h3>What is Space Collectors?</h3>
+            <p>
+                <!-- AÑADIR DESCRIPCIÓN DEL PROYECTO AQUÍ -->
+                Space Collectors is a web platform developed for the NASA Space Apps
+                Challenge 2026. Our project focuses on visualizing and exploring
+                electromagnetic wave data from celestial bodies, making complex
+                cosmic data accessible and understandable.
+                <br><br>
+                <em>[Add your team's specific approach and what makes your project unique.]</em>
+            </p>
+        </div>
+
+        <div class="bloque-texto animar">
+            <h3>
+                <i class="fas fa-bullseye" style="color:#f472b6; margin-right:8px;"></i>
+                Our Goal
+            </h3>
+            <p>
+                <!-- AÑADIR EL OBJETIVO DEL PROYECTO -->
+                [Describe the specific problem your team is solving and how
+                your platform addresses the NASA Space Apps challenge.]
+            </p>
+        </div>
+
+
+        <!-- =======================================================
+             SECCIÓN 3: INFORMACIÓN DE LA COMPETENCIA
+             ======================================================= -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-trophy" style="color:#f472b6; margin-right:10px;"></i>
+            Competition
+        </h2>
+
+        <div class="grid-contenido grid-3">
+            <div class="bloque-texto animar" style="margin-bottom:0;">
+                <h3><i class="fas fa-calendar" style="color:#f472b6; margin-right:8px;"></i>Event</h3>
+                <p>NASA Space Apps Challenge 2026</p>
+            </div>
+            <div class="bloque-texto animar" style="margin-bottom:0;">
+                <h3><i class="fas fa-map-marker-alt" style="color:#f472b6; margin-right:8px;"></i>Location</h3>
+                <p>
+                    <!-- AÑADIR CIUDAD/SEDE -->
+                    [City, Country]
+                </p>
+            </div>
+            <div class="bloque-texto animar" style="margin-bottom:0;">
+                <h3><i class="fas fa-tag" style="color:#f472b6; margin-right:8px;"></i>Challenge</h3>
+                <p>
+                    <!-- AÑADIR NOMBRE DEL CHALLENGE ESPECÍFICO -->
+                    [Challenge name]
+                </p>
+            </div>
+        </div>
+
+    </div><!-- /pagina-contenido -->
+</section>
+{% endblock %}

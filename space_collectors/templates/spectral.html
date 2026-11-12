@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block titulo %}Spectral Explorer{% endblock %}
+
+{% block contenido %}
+<section class="pagina">
+
+    <div class="pagina-encabezado">
+        <div class="pagina-breadcrumb">
+            <a href="{{ url_for('inicio') }}">Home</a>
+            <i class="fas fa-chevron-right" style="font-size:10px; opacity:0.5;"></i>
+            <span>Spectral Explorer</span>
+        </div>
+        <h1 class="pagina-titulo">
+            <span class="icono-pagina" style="background:rgba(139,92,246,0.1); border-color:rgba(139,92,246,0.2); color:#a78bfa;">
+                <i class="fas fa-wave-square"></i>
+            </span>
+            Spectral Explorer
+        </h1>
+        <p class="pagina-descripcion">
+            Electromagnetic spectra and wave data from celestial bodies.
+            Analyze the radiation signatures, absorption lines, and frequency
+            profiles of stars, nebulae, and other space objects.
+        </p>
+    </div>
+
+    <div class="pagina-contenido">
+
+        <div class="aviso-pendiente animar">
+            <i class="fas fa-clock"></i>
+            <span>
+                <strong>Data coming soon:</strong> Spectral data and wave frequency charts
+                will be added in 4 days when NASA releases the dataset.
+            </span>
+        </div>
+
+
+        <!-- =======================================================
+             SECCIÓN 1: ESPECTRO ELECTROMAGNÉTICO
+             -------------------------------------------------------
+             AQUÍ VA LA VISUALIZACIÓN DEL ESPECTRO
+             Puede ser una imagen, un gráfico de Matplotlib guardado
+             como PNG, o una gráfica interactiva con Plotly.
+             Ejemplo con imagen:
+             <img src="{{ url_for('static', filename='img/espectro.png') }}"
+                  alt="Espectro electromagnético" style="width:100%; border-radius:12px;">
+             ======================================================= -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-chart-line" style="color:#a78bfa; margin-right:10px;"></i>
+            Electromagnetic Spectrum Visualization
+        </h2>
+
+        <div class="grid-contenido animar">
+            <div class="placeholder-box placeholder-grande">
+                <i class="fas fa-chart-area"></i>
+                <span class="ph-titulo">Spectral Chart</span>
+                <span class="ph-nota">
+                    Insert spectrum graph here (Matplotlib / Plotly image)
+                </span>
+            </div>
+        </div>
+
+
+        <!-- =======================================================
+             SECCIÓN 2: DATOS DE FRECUENCIAS Y LONGITUDES DE ONDA
+             -------------------------------------------------------
+             AQUÍ VAN LOS DATOS ESPECTRALES DE CADA OBJETO
+             ======================================================= -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-table" style="color:#a78bfa; margin-right:10px;"></i>
+            Spectral Line Data
+        </h2>
+
+        <table class="tabla-datos animar">
+            <thead>
+                <tr>
+                    <th>Object</th>
+                    <th>Wavelength (nm)</th>
+                    <th>Frequency (THz)</th>
+                    <th>Spectrum Type</th>
+                    <th>Intensity</th>
+                    <th>Element / Compound</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- AÑADIR DATOS ESPECTRALES AQUÍ -->
+                <tr>
+                    <td colspan="6" class="tabla-vacia">
+                        <i class="fas fa-database"></i>
+                        Spectral data pending...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <!-- =======================================================
+             SECCIÓN 3: COMPARACIÓN DE ESPECTROS
+             -------------------------------------------------------
+             AQUÍ VAN LAS IMÁGENES COMPARATIVAS DE ESPECTROS
+             ======================================================= -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-sliders" style="color:#a78bfa; margin-right:10px;"></i>
+            Spectrum Comparison
+        </h2>
+
+        <div class="grid-contenido grid-2">
+            <div class="placeholder-box animar">
+                <i class="fas fa-image"></i>
+                <span class="ph-titulo">Object A — Spectrum</span>
+                <span class="ph-nota">Add spectral image here</span>
+            </div>
+            <div class="placeholder-box animar">
+                <i class="fas fa-image"></i>
+                <span class="ph-titulo">Object B — Spectrum</span>
+                <span class="ph-nota">Add spectral image here</span>
+            </div>
+        </div>
+
+    </div><!-- /pagina-contenido -->
+</section>
+{% endblock %}

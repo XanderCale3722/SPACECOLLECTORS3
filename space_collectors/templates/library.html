@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block titulo %}Space Library{% endblock %}
+
+{% block contenido %}
+<section class="pagina">
+
+    <div class="pagina-encabezado">
+        <div class="pagina-breadcrumb">
+            <a href="{{ url_for('inicio') }}">Home</a>
+            <i class="fas fa-chevron-right" style="font-size:10px; opacity:0.5;"></i>
+            <span>Space Library</span>
+        </div>
+        <h1 class="pagina-titulo">
+            <span class="icono-pagina" style="background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.2); color:#34d399;">
+                <i class="fas fa-book-open"></i>
+            </span>
+            Space Library
+        </h1>
+        <p class="pagina-descripcion">
+            Curated resources, research papers, and reference documentation
+            for understanding cosmic wave data and electromagnetic radiation
+            from space objects.
+        </p>
+    </div>
+
+    <div class="pagina-contenido">
+
+        <!-- =======================================================
+             SECCIÓN 1: RECURSOS Y REFERENCIAS
+             -------------------------------------------------------
+             AQUÍ VAN LOS ARTÍCULOS, PAPERS Y LINKS DE REFERENCIA
+             Para añadir un recurso, copia un bloque .bloque-texto
+             y rellénalo con el título, descripción y enlace.
+             ======================================================= -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-scroll" style="color:#34d399; margin-right:10px;"></i>
+            Research Papers &amp; References
+        </h2>
+
+        <!-- RECURSO 1 — REEMPLAZAR CON DATOS REALES -->
+        <div class="bloque-texto animar">
+            <h3>
+                <i class="fas fa-file-pdf" style="color:#34d399; margin-right:8px;"></i>
+                [Paper Title — Add here]
+            </h3>
+            <p>
+                Description of the paper, its authors, journal, and year.
+                What does it contribute to our project?
+                <!-- AÑADIR DESCRIPCIÓN Y ENLACE AL PAPER -->
+            </p>
+        </div>
+
+        <!-- RECURSO 2 -->
+        <div class="bloque-texto animar">
+            <h3>
+                <i class="fas fa-file-pdf" style="color:#34d399; margin-right:8px;"></i>
+                [Paper Title — Add here]
+            </h3>
+            <p>
+                Description of the paper.
+            </p>
+        </div>
+
+        <!-- RECURSO 3 -->
+        <div class="bloque-texto animar">
+            <h3>
+                <i class="fas fa-file-pdf" style="color:#34d399; margin-right:8px;"></i>
+                [Paper Title — Add here]
+            </h3>
+            <p>
+                Description of the paper.
+            </p>
+        </div>
+
+
+        <!-- =======================================================
+             SECCIÓN 2: FUENTES DE DATOS NASA
+             -------------------------------------------------------
+             AQUÍ VAN LOS LINKS A LAS BASES DE DATOS DE LA NASA
+             QUE ESTÁN USANDO PARA EL PROYECTO
+             ======================================================= -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-database" style="color:#34d399; margin-right:10px;"></i>
+            NASA Data Sources
+        </h2>
+
+        <table class="tabla-datos animar">
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Type of Data</th>
+                    <th>Access</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- AÑADIR FUENTES DE DATOS AQUÍ -->
+                <!-- Ejemplo de fila:
+                <tr>
+                    <td>NASA SkyView</td>
+                    <td>Multi-wavelength sky images</td>
+                    <td><a href="https://skyview.gsfc.nasa.gov" target="_blank" style="color:var(--cyan)">skyview.gsfc.nasa.gov</a></td>
+                    <td>Free, online access</td>
+                </tr>
+                -->
+                <tr>
+                    <td colspan="4" class="tabla-vacia">
+                        <i class="fas fa-database"></i>
+                        Data sources pending — add NASA links here
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <!-- =======================================================
+             SECCIÓN 3: HERRAMIENTAS UTILIZADAS
+             -------------------------------------------------------
+             AQUÍ VAN LAS HERRAMIENTAS, LIBRERÍAS Y SOFTWARE
+             QUE EL EQUIPO ESTÁ USANDO
+             ======================================================= -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-wrench" style="color:#34d399; margin-right:10px;"></i>
+            Tools &amp; Technologies
+        </h2>
+
+        <div class="grid-contenido grid-3">
+            <!-- HERRAMIENTA — reemplazar con las reales -->
+            <div class="placeholder-box animar">
+                <i class="fab fa-python"></i>
+                <span class="ph-titulo">Python + Flask</span>
+                <span class="ph-nota">Web framework</span>
+            </div>
+            <div class="placeholder-box animar">
+                <i class="fas fa-chart-bar"></i>
+                <span class="ph-titulo">[Library — Add]</span>
+                <span class="ph-nota">Data visualization</span>
+            </div>
+            <div class="placeholder-box animar">
+                <i class="fas fa-satellite"></i>
+                <span class="ph-titulo">[Tool — Add]</span>
+                <span class="ph-nota">Data processing</span>
+            </div>
+        </div>
+
+    </div><!-- /pagina-contenido -->
+</section>
+{% endblock %}
