@@ -1,5 +1,5 @@
 # ==============================================
-#  DESKTOOOOOP SPACE COLLECTORS — NASA Space Apps 2026
+#  DESKTOOOOOP SPACE COLLECTORS weeeb prueba de editado — NASA Space Apps 2026
 #  Archivo principal de la aplicación web
 # ==============================================
 #
