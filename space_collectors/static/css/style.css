@@ -1,10 +1,10 @@
-/* ============================================================
+/* 
    SPACE COLLECTORS — Estilos principales
    NASA Space Apps Challenge 2026
    ============================================================
 
-   Índice:
-   1.  Variables de color y diseño
+   CONTENIDO:
+   1.   color y diseño
    2.  Reset y estilos base
    3.  Estrellas animadas
    4.  Barra de navegación
@@ -14,7 +14,7 @@
    8.  Footer
    9.  Responsive (pantallas pequeñas)
    10. Animaciones globales
-   ============================================================ */
+*/
 
 
 /* ============================================================
@@ -102,20 +102,7 @@ body {
 }
 
 
-/* ============================================================
-   3. ESTRELLAS ANIMADAS
-   Las estrellas se crean con JavaScript (main.js)
-   ============================================================ */
-.fondo-estrellas {
-    position: fixed;        /* Siempre visible aunque hagas scroll */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;   /* Las estrellas no bloquean clics */
-    z-index: 0;
-    overflow: hidden;
-}
+
 
 /* Cada estrella individual */
 .estrella {
