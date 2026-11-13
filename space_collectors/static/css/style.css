@@ -102,7 +102,20 @@ body {
 }
 
 
-
+/* ============================================================
+   3. ESTRELLAS ANIMADAS
+   Las estrellas las cree con JavaScript (main.js)
+   ============================================================ */
+.fondo-estrellas {
+    position: fixed;        /* para que las estrellas nos e muevan aunque bajemos */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;   /* Las estrellas no bloquean clics */
+    z-index: 5;
+    overflow: hidden;
+}
 
 /* Cada estrella individual */
 .estrella {
