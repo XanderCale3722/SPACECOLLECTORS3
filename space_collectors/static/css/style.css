@@ -145,7 +145,7 @@ body {
     transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Logo / Nombre del proyecto */
+/* Logo Y Nombre del proyecto */
 .navbar-marca {
     display: flex;
     align-items: center;
@@ -190,7 +190,7 @@ body {
     background: rgba(0, 212, 255, 0.1);
 }
 
-/* Botón hamburguesa (solo en móvil) */
+/* Botón de la hamburguesa (solo en móvil) */
 .navbar-toggle {
     display: none;
     background: none;
@@ -208,13 +208,13 @@ body {
 }
 
 
-/* ============================================================
-   5. SECCIÓN HERO
-   Visible al abrir la página (pantalla completa)
-   ============================================================ */
+/*
+   5. SECCIÓN HERO que es el texto en grande
+   Visible al abrir la página
+*/
 .hero {
     position: relative;
-    min-height: 100vh;
+    min-height: 50vh;
     display: flex;
     align-items: center;
     justify-content: center;
