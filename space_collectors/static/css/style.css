@@ -822,3 +822,9 @@ body {
     opacity: 1;
     transform: translateY(0);
 }
+.miembro-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
