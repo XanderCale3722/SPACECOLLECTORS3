@@ -36,21 +36,29 @@ def inicio():
     return render_template('index.html')
 
 
+#se agrega codigo de librerías necesarias para el sky explorer para q inicien solamente al iniciar la pagina.
 @app.route('/sky-explorer')
 def sky_explorer():
-    """Sky Explorer — Imágenes y coordenadas de objetos espaciales."""
+    from astropy.io import fits
+    from astropy.wcs import WCS
+    from astropy.coordinates import SkyCoord
+    import astropy.units as u
     return render_template('sky.html')
 
 
+#se agrega codigo de librerias necesarias para el spectral explorer para evitar locuras.
 @app.route('/spectral-explorer')
 def spectral_explorer():
     """Spectral Explorer — Datos de espectros y ondas electromagnéticas."""
+    from astropy.table import Table
     return render_template('spectral.html')
 
 
+#se agrega codigo de librerias necesarias para el time explorer para evitar locuras.
 @app.route('/time-explorer')
 def time_explorer():
     """Time Explorer — Cambios temporales en las señales espaciales."""
+    from astropy.table import Table
     return render_template('time.html')
 
 
