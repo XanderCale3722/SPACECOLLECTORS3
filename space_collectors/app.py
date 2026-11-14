@@ -12,6 +12,13 @@
 
 from flask import Flask, render_template
 
+ #esto es las librerias necesarias solo para iniciar la pagina y que no tarde tanto por el render   
+
+import numpy as np
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+
 # Creamos la aplicación Flask
 # Flask es el motor que hace funcionar nuestra página web
 app = Flask(__name__)

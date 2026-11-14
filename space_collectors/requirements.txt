@@ -1,2 +1,11 @@
 flask
 gunicorn
+numpy
+matplotlib
+astropy
+astroquery
+hpgeom
+requests
+firefly_client
+reproject
+photutils
