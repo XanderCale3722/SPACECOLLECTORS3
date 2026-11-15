@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% block titulo %}About Us{% endblock %}
+
+{% block contenido %}
+<section class="pagina">
+
+    <div class="pagina-encabezado">
+        <div class="pagina-breadcrumb">
+            <a href="{{ url_for('inicio') }}">Home</a>
+            <i class="fas fa-chevron-right" style="font-size:10px; opacity:0.5;"></i>
+            <span>About Us</span>
+        </div>
+        <h1 class="pagina-titulo">
+            <span class="icono-pagina" style="background:rgba(236,72,153,0.1); border-color:rgba(236,72,153,0.2); color:#f472b6;">
+                <i class="fas fa-users"></i>
+            </span>
+            About Us
+        </h1>
+        <p class="pagina-descripcion">
+            Meet the Space Collectors team competing in the
+            NASA Space Apps Challenge 2026.
+        </p>
+    </div>
+
+    <div class="pagina-contenido">
+
+           <!--
+             SECCIÓN 1: TARJETAS DEL EQUIPO
+             -------------------------------------------------------
+             Para personalizar cada integrante:
+             1. Cambiar "[Nombre]" por el nombre xd
+             2. Cambia "[Rol]" por el rol
+             3. Para añadir la foto, reemplazar el <div class="miembro-foto">
+                con:
+                <div class="miembro-foto">
+                    <img src="{{ url_for('static', filename='img/nombre.jpg') }}"
+                         alt="Nombre del integrante">
+                </div>
+             -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-id-card" style="color:#f472b6; margin-right:10px;"></i>
+            Our Team
+        </h2>
+
+        <div class="equipo-grid">
+
+            <!-- INTEGRANTE JIMENA -->
+            <div class="miembro-card animar">
+                <div class="miembro-foto">
+                    <!-- Reemplazar con: <img src="" alt="Nombre"> -->
+                    <img src="img/1000028078.jpg">
+                </div>
+                <p class="miembro-nombre">JIMENA</p>
+                <p class="miembro-rol">(Fronted Developer)</p>
+            </div>
+
+            <!-- INTEGRANTE YOHAN -->
+            <div class="miembro-card animar">
+                <div class="miembro-foto">
+                    <img scr="img/1000028083.jpg">
+                </div>
+                <p class="miembro-nombre">YOHAN ON</p>
+                <p class="miembro-rol">(Backend Developer)</p>
+            </div>
+
+            <!-- INTEGRANTE NIKTÉ -->
+            <div class="miembro-card animar">
+                <div class="miembro-foto">
+                    <i class="img/1000028072.jpg"></i>
+                </div>
+                <p class="miembro-nombre">NIKTÉ</p>
+                <p class="miembro-rol">(Scientific Researcher)</p>
+            </div>
+
+            <!-- INTEGRANTE MAYELA -->
+            <div class="miembro-card animar">
+                <div class="miembro-foto">
+                    <i class="img/1000028084.jpg"></i>
+                </div>
+                <p class="miembro-nombre">MAYELA</p>
+                <p class="miembro-rol">(UI/UX Designer)</p>
+            </div>
+
+            <!-- INTEGRANTE EMILIO -->
+            <div class="miembro-card animar">
+                <div class="miembro-foto">
+                    <i class="img/1000028080.jpg"></i>
+                </div>
+                <p class="miembro-nombre">EMILIO</p>
+                <p class="miembro-rol">(Quality Assurance Tester)</p>
+            </div>
+
+            <!-- INTEGRANTE FÁTIMA -->
+            <div class="miembro-card animar">
+                <div class="miembro-foto">
+                    <i class="img/1000028075.jpg"></i>
+                </div>
+                <p class="miembro-nombre">FÁTIMA</p>
+                <p class="miembro-rol">(Astronomical Data Analyst)</p>
+            </div>
+
+        </div><!-- /equipo-grid -->
+
+
+        <!-- 
+             SECCIÓN 2: TODO SOBRE EL PROYECTO
+             -------------------------------------------------------
+             AQUÍ VAMOS A PONER LA DESCRIPCIÓN DEL PROYECTO Y SU PROPUESTA?
+             -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-rocket" style="color:#f472b6; margin-right:10px;"></i>
+            About the Project
+        </h2>
+
+        <div class="bloque-texto animar">
+            <h3>What is Space Collectors?</h3>
+            <p>
+                <!-- AÑADIR LA DESCRIPCIÓN DEL PROYECTO AQUÍ -->
+                We are a group of students passionate about space science and interested in developing
+                new learning tools for people of all backgrounds. We aim to create a project that helps
+                address challenges in space exploration and makes complex information more accessible. 
+                <br><br>
+                <em></em>
+            </p>
+        </div>
+
+        <div class="bloque-texto animar">
+            <h3>
+                <i class="fas fa-bullseye" style="color:#f472b6; margin-right:8px;"></i>
+                Our Goal
+            </h3>
+            <p>
+                <!-- AÑADIR ACÁ EL OBJETIVO DEL PROYECTO -->
+                Our goal is to provide a web-based tool that makes it easier to understand data 
+                collected by SPHEREx, while offering an interactive learning experience where users 
+                can explore information about astronomical images and discover how they change over time.
+            </p>
+        </div>
+
+
+        <!--
+             SECCIÓN 3: INFORMACIÓN DE LA COMPETENCIA
+          -->
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-trophy" style="color:#f472b6; margin-right:10px;"></i>
+            Competition
+        </h2>
+
+        <div class="grid-contenido grid-3">
+            <div class="bloque-texto animar" style="margin-bottom:0;">
+                <h3><i class="fas fa-calendar" style="color:#f472b6; margin-right:8px;"></i>Event</h3>
+                <p>NASA Space Apps Challenge 2026</p>
+            </div>
+            <div class="bloque-texto animar" style="margin-bottom:0;">
+                <h3><i class="fas fa-map-marker-alt" style="color:#f472b6; margin-right:8px;"></i>Location</h3>
+                <p>
+                    <!-- AÑADIR CIUDAD -->
+                    Ciudad de Guatemala, Guatemala
+                </p>
+            </div>
+            <div class="bloque-texto animar" style="margin-bottom:0;">
+                <h3><i class="fas fa-tag" style="color:#f472b6; margin-right:8px;"></i>Challenge</h3>
+                <p>
+                    <!-- AÑADIR EL NOMBRE DEL CHALLENGE ESPECÍFICO -->
+                    Planet X and SphereX 
+                </p>
+            </div>
+        </div>
+
+    </div><!-- /pagina-contenido -->
+</section>
+{% endblock %}
