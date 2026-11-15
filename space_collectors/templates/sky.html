@@ -2,118 +2,202 @@
 {% block titulo %}Sky Explorer{% endblock %}
 
 {% block contenido %}
+<style>
+  .se-busqueda, .se-visor { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 20px; margin-bottom: 24px; }
+  .se-fila { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+  .se-campo { display: flex; flex-direction: column; gap: 6px; flex: 1 1 140px; }
+  .se-campo label { font-size: 13px; opacity: .8; }
+  .se-campo input, .se-campo select { padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.35); color: inherit; font: inherit; }
+  .se-btn { padding: 10px 18px; border-radius: 8px; border: 1px solid var(--cyan, #22d3ee); background: transparent; color: var(--cyan, #22d3ee); font: inherit; cursor: pointer; }
+  .se-btn:hover, .se-btn.activo { background: var(--cyan, #22d3ee); color: #04141c; }
+  .se-btn:focus-visible, .se-campo input:focus-visible, .se-campo select:focus-visible { outline: 2px solid var(--cyan, #22d3ee); outline-offset: 2px; }
+  .se-msg { margin-top: 12px; font-size: 14px; min-height: 20px; }
+  .se-msg.error { color: #ff8a8a; }
+  .se-imagen { width: 100%; aspect-ratio: 1 / 1; max-height: 520px; background: #000; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .se-imagen img { width: 100%; height: 100%; object-fit: contain; }
+  .se-vacio { opacity: .6; text-align: center; padding: 20px; }
+  .se-fases { display: flex; gap: 10px; margin: 16px 0; flex-wrap: wrap; }
+  .se-datos { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  .se-dato { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 12px; }
+  .se-dato span { display: block; font-size: 12px; opacity: .7; margin-bottom: 4px; }
+  .se-dato strong { font-size: 16px; word-break: break-word; }
+</style>
+
 <section class="pagina">
 
-    <!-- Encabezado de la página -->
     <div class="pagina-encabezado">
-        <!-- Ruta de navegación -->
         <div class="pagina-breadcrumb">
             <a href="{{ url_for('inicio') }}">Home</a>
             <i class="fas fa-chevron-right" style="font-size:10px; opacity:0.5;"></i>
             <span>Sky Explorer</span>
         </div>
-
-        <!-- Título con ícono -->
         <h1 class="pagina-titulo">
             <span class="icono-pagina"><i class="fas fa-binoculars"></i></span>
             Sky Explorer
         </h1>
         <p class="pagina-descripcion">
-            Images and coordinates of observed space objects.
-            Visualize the location of stars, galaxies, and other celestial bodies
-            captured by sky survey instruments.
+            Enter the X, Y and Z position of the spacecraft (in km) to see the image
+            captured closest to that point of the scan.
         </p>
     </div>
 
-    <!-- Contenido principal -->
     <div class="pagina-contenido">
 
-        <!-- Aviso: datos pendientes de la NASA -->
-        <div class="aviso-pendiente animar">
-            <i class="fas fa-clock"></i>
-            <span>
-                <strong>Data coming soon:</strong> Images and coordinates will be added
-                in the next 4 days when NASA releases the dataset.
-                Leave the placeholder boxes below and fill them when the data arrives.
-            </span>
-         </div> 
-   <!-- =======================================================
-             SECCIÓN 1: TABLA DE COORDENADAS
-             -------------------------------------------------------
-             AQUÍ VAN LAS COORDENADAS (RA, DEC, Distancia, etc.)
-             Para añadir datos, reemplaza la fila vacía con:
-             <tr>
-               <td>Nombre del objeto</td>
-               <td>12h 30m 49s</td>
-               <td>+41° 16' 09"</td>
-               <td>2.537 Mly</td>
-               <td>Galaxia espiral</td>
-             </tr>
-             ======================================================= -->
-        <h2 class="subtitulo-seccion animar">
-            <i class="fas fa-crosshairs" style="color:var(--cyan); margin-right:10px;"></i>
-            Object Coordinates
-        </h2>
-
-        <table class="tabla-datos animar">
-            <thead>
-                <tr>
-                    <th>Object Name</th>
-                    <th>Right Ascension (RA)</th>
-                    <th>Declination (DEC)</th>
-                    <th>Distance</th>
-                    <th>Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- AÑADIR FILAS DE DATOS AQUÍ cuando lleguen los datos -->
-                <tr>
-                    <td colspan="5" class="tabla-vacia">
-                        <i class="fas fa-database"></i>
-                        Coordinate data pending...
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- =======================================================
-             SECCIÓN 2: GALERÍA DE IMÁGENES
-             -------------------------------------------------------
-             AQUÍ VAN LAS IMÁGENES DEL TELESCOPIO / SKY SURVEY
-             Para añadir una imagen real, reemplaza el bloque
-             <div class="placeholder-box"> con:
-             <img src="{{ url_for('static', filename='img/tu_imagen.jpg') }}"
-                  alt="Descripción" style="width:100%; border-radius:12px;">
-             ======================================================= -->
-        <h2 class="subtitulo-seccion animar">
-            <i class="fas fa-images" style="color:var(--cyan); margin-right:10px;"></i>
-            Image Gallery
-        </h2>
-
-        <div class="grid-contenido grid-3">
-            <!-- IMAGEN 1 — reemplazar cuando lleguen los datos -->
-            <div class="placeholder-box animar">
-                <i class="fas fa-image"></i>
-                <span class="ph-titulo">Sky Image 1</span>
-                <span class="ph-nota">Add telescope image here</span>
+        <!-- BÚSQUEDA -->
+        <div class="se-busqueda animar">
+            <div class="se-fila">
+                <div class="se-campo">
+                    <label for="se-x">X (km)</label>
+                    <input id="se-x" type="number" step="any" placeholder="-3453.508">
+                </div>
+                <div class="se-campo">
+                    <label for="se-y">Y (km)</label>
+                    <input id="se-y" type="number" step="any" placeholder="1911.388">
+                </div>
+                <div class="se-campo">
+                    <label for="se-z">Z (km)</label>
+                    <input id="se-z" type="number" step="any" placeholder="5809.072">
+                </div>
+                <button class="se-btn" id="se-buscar" type="button">Search</button>
             </div>
-
-            <!-- IMAGEN 2 -->
-            <div class="placeholder-box animar">
-                <i class="fas fa-image"></i>
-                <span class="ph-titulo">Sky Image 2</span>
-                <span class="ph-nota">Add telescope image here</span>
+            <div class="se-fila" style="margin-top:14px;">
+                <div class="se-campo">
+                    <label for="se-preset">Or pick a preset observation</label>
+                    <select id="se-preset"><option value="">Loading…</option></select>
+                </div>
+                <button class="se-btn" id="se-reiniciar" type="button">Reset</button>
             </div>
-
-            <!-- IMAGEN 3 -->
-            <div class="placeholder-box animar">
-                <i class="fas fa-image"></i>
-                <span class="ph-titulo">Sky Image 3</span>
-                <span class="ph-nota">Add telescope image here</span>
-            </div>
+            <div class="se-msg" id="se-msg" role="status"></div>
         </div>
 
+        <!-- VISOR -->
+        <div class="se-visor animar">
+            <div class="se-imagen" id="se-imagen">
+                <div class="se-vacio"><i class="fas fa-image"></i><br>Search a position to see its image.</div>
+            </div>
 
-    </div><!-- /pagina-contenido -->
+            <div class="se-fases" id="se-fases" hidden>
+                <button class="se-btn activo" type="button" data-fase="inicio">Start</button>
+                <button class="se-btn" type="button" data-fase="mitad">Middle</button>
+                <button class="se-btn" type="button" data-fase="final">End</button>
+            </div>
+
+            <div class="se-datos" id="se-datos"></div>
+        </div>
+
+    </div>
 </section>
+
+<script>
+(function () {
+  var URL_DATOS = "{{ url_for('static', filename='data/sky_data.json') }}";
+  var CARPETA_IMG = "{{ url_for('static', filename='img/sky/') }}";
+  var FASES = { inicio: "Start", mitad: "Middle", final: "End" };
+
+  var datos = [], actual = null, fase = "inicio";
+  var $ = function (id) { return document.getElementById(id); };
+
+  function msg(texto, error) {
+    $("se-msg").textContent = texto || "";
+    $("se-msg").className = "se-msg" + (error ? " error" : "");
+  }
+  function f(n, d) { return (n === null || n === undefined) ? "—" : Number(n).toFixed(d); }
+  function dist(a, b) { return Math.sqrt(Math.pow(a[0]-b[0],2) + Math.pow(a[1]-b[1],2) + Math.pow(a[2]-b[2],2)); }
+
+  function cargar() {
+    fetch(URL_DATOS).then(function (r) { return r.json(); }).then(function (json) {
+      datos = json;
+      var sel = $("se-preset");
+      sel.innerHTML = '<option value="">Select…</option>';
+      datos.forEach(function (d, i) {
+        var o = document.createElement("option");
+        o.value = i; o.textContent = d.nombre + " — " + (d.inicio.fecha || "").slice(0, 10);
+        sel.appendChild(o);
+      });
+    }).catch(function () {
+      $("se-preset").innerHTML = '<option value="">No data found</option>';
+      msg("Could not load sky_data.json. Run convertir_datos.py first.", true);
+    });
+  }
+
+  function buscar() {
+    var p = [$("se-x").value, $("se-y").value, $("se-z").value].map(parseFloat);
+    if (p.some(isNaN)) { msg("Enter numeric values for X, Y and Z.", true); return; }
+    if (!datos.length) { msg("No observations loaded yet.", true); return; }
+    var mejor = null, mejorD = Infinity;
+    datos.forEach(function (d) {
+      Object.keys(FASES).forEach(function (k) {
+        var dd = dist(p, d[k].xyz);
+        if (dd < mejorD) { mejorD = dd; mejor = d; }
+      });
+    });
+    mostrar(mejor);
+    msg("Closest observation: " + f(mejorD, 1) + " km from the point you entered.");
+  }
+
+  function mostrar(obs) {
+    actual = obs; fase = "inicio";
+    var cont = $("se-imagen");
+    cont.innerHTML = "";
+    var img = new Image();
+    img.alt = "Sky image " + obs.nombre;
+    img.onerror = function () {
+      cont.innerHTML = '<div class="se-vacio">Image not found:<br>' + obs.imagen + '</div>';
+    };
+    img.src = CARPETA_IMG + obs.imagen;
+    cont.appendChild(img);
+    $("se-fases").hidden = false;
+    pintar();
+  }
+
+  function pintar() {
+    if (!actual) return;
+    var d = actual[fase];
+    document.querySelectorAll("#se-fases .se-btn").forEach(function (b) {
+      b.classList.toggle("activo", b.dataset.fase === fase);
+    });
+    var items = [
+      ["Target", actual.nombre],
+      ["Point of scan", FASES[fase]],
+      ["Date (UTC)", d.fecha || "—"],
+      ["X (km)", f(d.xyz[0], 3)],
+      ["Y (km)", f(d.xyz[1], 3)],
+      ["Z (km)", f(d.xyz[2], 3)],
+      ["Velocity X/Y/Z (km/s)", d.vel.map(function (v) { return f(v, 3); }).join(" / ")],
+      ["RA / DEC (deg)", f(actual.ra, 4) + " / " + f(actual.dec, 4)]
+    ];
+    $("se-datos").innerHTML = items.map(function (i) {
+      return '<div class="se-dato"><span>' + i[0] + '</span><strong>' + i[1] + '</strong></div>';
+    }).join("");
+  }
+
+  function reiniciar() {
+    actual = null; fase = "inicio";
+    ["se-x", "se-y", "se-z"].forEach(function (id) { $(id).value = ""; });
+    $("se-preset").value = "";
+    $("se-imagen").innerHTML = '<div class="se-vacio"><i class="fas fa-image"></i><br>Search a position to see its image.</div>';
+    $("se-fases").hidden = true;
+    $("se-datos").innerHTML = "";
+    msg("");
+  }
+
+  $("se-buscar").addEventListener("click", buscar);
+  $("se-reiniciar").addEventListener("click", reiniciar);
+  ["se-x", "se-y", "se-z"].forEach(function (id) {
+    $(id).addEventListener("keydown", function (e) { if (e.key === "Enter") buscar(); });
+  });
+  $("se-preset").addEventListener("change", function () {
+    if (this.value === "") return;
+    var obs = datos[parseInt(this.value, 10)];
+    $("se-x").value = obs.inicio.xyz[0]; $("se-y").value = obs.inicio.xyz[1]; $("se-z").value = obs.inicio.xyz[2];
+    mostrar(obs); msg("Preset loaded: " + obs.nombre);
+  });
+  $("se-fases").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-fase]");
+    if (b) { fase = b.dataset.fase; pintar(); }
+  });
+
+  cargar();
+})();
+</script>
 {% endblock %}
