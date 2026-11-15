@@ -71,46 +71,23 @@
             <p>
                 Description of the paper.
             </p>
-        </div>
+        <</div>
 
 
         <!-- =======================================================
-             SECCIÓN 2: FUENTES DE DATOS NASA
+             SECCIÓN 1: GALERÍA DE IMÁGENES
              -------------------------------------------------------
-             AQUÍ VAN LOS LINKS A LAS BASES DE DATOS DE LA NASA
-             QUE ESTÁN USANDO PARA EL PROYECTO
+             AQUÍ VAN LAS IMÁGENES DEL TELESCOPIO / SKY SURVEY
+             Para añadir una imagen real, reemplaza el bloque
+             <div class="placeholder-box"> con:
+             <img src="{{ url_for('static', filename='img/tu_imagen.jpg') }}"
+                  alt="Descripción" style="width:100%; border-radius:12px;">
              ======================================================= -->
         <h2 class="subtitulo-seccion animar">
-            <i class="fas fa-database" style="color:#34d399; margin-right:10px;"></i>
-            NASA Data Sources
+            <i class="fas fa-images" style="color:var(--cyan); margin-right:10px;"></i>
+            Image Gallery
         </h2>
 
-        <table class="tabla-datos animar">
-            <thead>
-                <tr>
-                    <th>Source</th>
-                    <th>Type of Data</th>
-                    <th>Access</th>
-                    <th>Notes</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- AÑADIR FUENTES DE DATOS AQUÍ -->
-                <!-- Ejemplo de fila:
-                <tr>
-                    <td>NASA SkyView</td>
-                    <td>Multi-wavelength sky images</td>
-                    <td><a href="https://skyview.gsfc.nasa.gov" target="_blank" style="color:var(--cyan)">skyview.gsfc.nasa.gov</a></td>
-                    <td>Free, online access</td>
-                </tr>
-                -->
-                <tr>
-                    <td colspan="4" class="tabla-vacia">
-                        <i class="fas fa-database"></i>
-                        Data sources pending — add NASA links here
-                    </td>
-                </tr>
-            </tbody>
         </table>
 
 
