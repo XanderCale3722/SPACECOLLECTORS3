@@ -102,27 +102,51 @@ body {
 }
 
 
+
 /* ============================================================
    3. ESTRELLAS ANIMADAS
-   Las estrellas las cree con JavaScript (main.js)
    ============================================================ */
+
 .fondo-estrellas {
-    position: fixed;        /* para que las estrellas nos e muevan aunque bajemos */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none;   /* Las estrellas no bloquean clics */
+    pointer-events: none;
     z-index: 0;
     overflow: hidden;
 }
 
 /* Cada estrella individual */
+
 .estrella {
     position: absolute;
     background: white;
-    border-radius: 10%;
+    border-radius: 50%;
+
+    /* Efecto luminoso */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+
+    /* Animación de parpadeo */
+    animation: titilar var(--dur) ease-in-out infinite;
+    animation-delay: var(--delay);
 }
+
+/* Movimiento de brillo */
+
+@keyframes titilar {
+    0%, 100% {
+        opacity: 0.2;
+        transform: scale(0.7);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
 
 
 /* ============================================================
