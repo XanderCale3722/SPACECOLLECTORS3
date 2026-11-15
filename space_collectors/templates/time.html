@@ -7,178 +7,350 @@
     <div class="pagina-encabezado">
         <div class="pagina-breadcrumb">
             <a href="{{ url_for('inicio') }}">Home</a>
-            <i class="fas fa-chevron-right" style="font-size:10px; opacity:0.5;"></i>
+            <i class="fas fa-chevron-right"></i>
             <span>Time Explorer</span>
         </div>
+
         <h1 class="pagina-titulo">
-            <span class="icono-pagina" style="background:rgba(245,158,11,0.1); border-color:rgba(245,158,11,0.2); color:#fbbf24;">
+            <span class="icono-pagina"
+                  style="color:#fbbf24;">
                 <i class="fas fa-clock"></i>
             </span>
             Time Explorer
         </h1>
+
         <p class="pagina-descripcion">
-            Temporal changes in cosmic signals and radiation patterns.
-            Track how electromagnetic emissions evolve over time across
-            different celestial bodies and events.
+            Explore temporal changes in astronomical signals
+            and compare observations over time.
         </p>
     </div>
 
     <div class="pagina-contenido">
 
         <div class="aviso-pendiente animar">
-            <i class="fas fa-clock"></i>
+            <i class="fas fa-circle-info"></i>
             <span>
-                <strong>Data coming soon:</strong> Temporal signal data and timelines
-                will be added in 4 days when NASA releases the dataset.
+                <strong>Demonstration mode:</strong>
+                The chart currently uses simulated values.
+                Real SPHEREx observations will be added
+                after data validation.
             </span>
         </div>
 
+        <!-- SECTION 1: TEMPORAL CHART -->
 
-        <!-- =======================================================
-             SECCIÓN 1: GRÁFICA DE EVOLUCIÓN TEMPORAL
-             -------------------------------------------------------
-             AQUÍ VA LA GRÁFICA DE CÓMO CAMBIA LA SEÑAL EN EL TIEMPO
-             Ideal para gráficas de Matplotlib o Plotly exportadas
-             como imagen PNG o HTML interactivo.
-             ======================================================= -->
         <h2 class="subtitulo-seccion animar">
-            <i class="fas fa-chart-line" style="color:#fbbf24; margin-right:10px;"></i>
+            <i class="fas fa-chart-line"
+               style="color:#fbbf24;"></i>
             Signal Evolution Over Time
         </h2>
 
         <div class="grid-contenido animar">
-    <div style="width:100%; min-width:0; padding:20px;
-                background:#111827; border-radius:14px;">
+            <div style="
+                width:100%;
+                min-width:0;
+                box-sizing:border-box;
+                padding:20px;
+                background:#111827;
+                border:1px solid #374151;
+                border-radius:14px;
+            ">
 
-        <h3 style="color:white; margin-bottom:10px;">
-            Barnard's Star — Temporal Analysis
-        </h3>
+                <h3 style="color:#ffffff;">
+                    Barnard's Star — Temporal Analysis
+                </h3>
 
-        <p style="color:#fbbf24; font-size:13px;">
-            Demonstration data — not NASA observations
-        </p>
+                <p style="
+                    color:#fbbf24;
+                    font-size:13px;
+                    margin-bottom:20px;
+                ">
+                    Simulated data — not NASA observations
+                </p>
 
-        <div id="temporal-chart"
-             style="width:100%; height:400px;">
+                <div style="overflow-x:auto;">
+                    <svg id="temporal-chart"
+                         viewBox="0 0 760 360"
+                         role="img"
+                         aria-label="Interactive temporal signal chart"
+                         style="
+                            display:block;
+                            width:100%;
+                            min-width:480px;
+                            height:auto;
+                         ">
+                    </svg>
+                </div>
+
+                <p id="chart-info"
+                   aria-live="polite"
+                   style="
+                       color:#cbd5e1;
+                       font-size:13px;
+                       margin-top:15px;
+                   ">
+                    Select a point to view observation details.
+                </p>
+
+            </div>
         </div>
 
-    </div>
-</div>
+        <!-- SECTION 2: OBSERVATION LOG -->
 
-        <!-- =======================================================
-             SECCIÓN 2: TABLA DE OBSERVACIONES TEMPORALES
-             -------------------------------------------------------
-             AQUÍ VAN LOS REGISTROS DE CADA OBSERVACIÓN CON SU FECHA
-             ======================================================= -->
         <h2 class="subtitulo-seccion animar">
-            <i class="fas fa-calendar-days" style="color:#fbbf24; margin-right:10px;"></i>
+            <i class="fas fa-calendar-days"
+               style="color:#fbbf24;"></i>
             Observation Log
         </h2>
 
-        <table class="tabla-datos animar">
-            <thead>
-                <tr>
-                    <th>Date (UTC)</th>
-                    <th>Object</th>
-                    <th>Signal Type</th>
-                    <th>Intensity</th>
-                    <th>Duration</th>
-                    <th>Notes</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- AÑADIR OBSERVACIONES AQUÍ -->
-                <tr>
-                    <td colspan="6" class="tabla-vacia">
-                        <i class="fas fa-database"></i>
-                        Temporal observation data pending...
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div style="overflow-x:auto;">
+            <table class="tabla-datos animar">
+                <thead>
+                    <tr>
+                        <th>Date (UTC)</th>
+                        <th>Object</th>
+                        <th>Signal Type</th>
+                        <th>Intensity</th>
+                        <th>Duration</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
 
+                <tbody id="observation-body">
+                    <tr>
+                        <td colspan="6" class="tabla-vacia">
+                            Loading demonstration data...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-        <!-- =======================================================
-             SECCIÓN 3: COMPARACIÓN ANTES / DESPUÉS
-             -------------------------------------------------------
-             AQUÍ VAN DOS IMÁGENES DEL MISMO OBJETO EN DISTINTOS MOMENTOS
-             ======================================================= -->
+        <!-- SECTION 3: IMAGE COMPARISON -->
+
         <h2 class="subtitulo-seccion animar">
-            <i class="fas fa-arrows-left-right" style="color:#fbbf24; margin-right:10px;"></i>
+            <i class="fas fa-arrows-left-right"
+               style="color:#fbbf24;"></i>
             Before / After Comparison
         </h2>
 
         <div class="grid-contenido grid-2">
+
             <div class="placeholder-box animar">
                 <i class="fas fa-image"></i>
-                <span class="ph-titulo">Observation — Early Date</span>
-                <span class="ph-nota">Add image (date: TBD)</span>
+                <span class="ph-titulo">
+                    Observation — Early Date
+                </span>
+                <span class="ph-nota">
+                    Awaiting validated SPHEREx image
+                </span>
             </div>
+
             <div class="placeholder-box animar">
                 <i class="fas fa-image"></i>
-                <span class="ph-titulo">Observation — Recent Date</span>
-                <span class="ph-nota">Add image (date: TBD)</span>
+                <span class="ph-titulo">
+                    Observation — Recent Date
+                </span>
+                <span class="ph-nota">
+                    Awaiting validated SPHEREx image
+                </span>
             </div>
+
         </div>
 
-    </div><!-- /pagina-contenido -->
+    </div>
 </section>
-<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 
 <script>
-    // Datos simulados para probar la gráfica
-    const dates = [
-        "2026-01-01",
-        "2026-01-02",
-        "2026-01-03",
-        "2026-01-04",
-        "2026-01-05",
-        "2026-01-06"
+(function () {
+    "use strict";
+
+    // SIMULATED VALUES FOR TESTING ONLY
+    const observations = [
+        { date: "2026-01-01", intensity: 12 },
+        { date: "2026-01-02", intensity: 18 },
+        { date: "2026-01-03", intensity: 15 },
+        { date: "2026-01-04", intensity: 25 },
+        { date: "2026-01-05", intensity: 21 },
+        { date: "2026-01-06", intensity: 30 }
     ];
 
-    const intensity = [12, 18, 15, 25, 21, 30];
+    const svg = document.getElementById("temporal-chart");
+    const tbody = document.getElementById("observation-body");
+    const info = document.getElementById("chart-info");
 
-    const trace = {
-        x: dates,
-        y: intensity,
-        type: "scatter",
-        mode: "lines+markers",
-        name: "Signal Intensity",
-        line: {
-            color: "#fbbf24",
-            width: 3
-        },
-        marker: {
-            color: "#f59e0b",
-            size: 9
+    if (!svg || !tbody || !info) return;
+
+    const NS = "http://www.w3.org/2000/svg";
+
+    function add(tag, attrs, parent = svg, content = "") {
+        const element = document.createElementNS(NS, tag);
+
+        Object.entries(attrs).forEach(([key, value]) => {
+            element.setAttribute(key, value);
+        });
+
+        if (content) element.textContent = content;
+
+        parent.appendChild(element);
+        return element;
+    }
+
+    const left = 75;
+    const right = 720;
+    const top = 55;
+    const bottom = 285;
+    const maxValue = 35;
+
+    const x = i =>
+        left + i * (right - left) /
+        (observations.length - 1);
+
+    const y = value =>
+        bottom - value / maxValue * (bottom - top);
+
+    // CHART TITLE
+    add("text", {
+        x: 380,
+        y: 25,
+        fill: "#ffffff",
+        "font-size": 17,
+        "text-anchor": "middle"
+    }, svg, "Signal Evolution Over Time");
+
+    // GRID AND Y AXIS
+    for (let value = 0; value <= 35; value += 5) {
+        const py = y(value);
+
+        add("line", {
+            x1: left,
+            y1: py,
+            x2: right,
+            y2: py,
+            stroke: "#374151",
+            "stroke-width": 1
+        });
+
+        add("text", {
+            x: 60,
+            y: py + 4,
+            fill: "#cbd5e1",
+            "font-size": 12,
+            "text-anchor": "end"
+        }, svg, String(value));
+    }
+
+    // X AXIS LABELS
+    observations.forEach((obs, i) => {
+        add("text", {
+            x: x(i),
+            y: bottom + 24,
+            fill: "#cbd5e1",
+            "font-size": 11,
+            "text-anchor": "middle"
+        }, svg, obs.date.slice(5));
+    });
+
+    // AXIS TITLES
+    add("text", {
+        x: 380,
+        y: 345,
+        fill: "#cbd5e1",
+        "font-size": 13,
+        "text-anchor": "middle"
+    }, svg, "Observation Date (2026)");
+
+    add("text", {
+        x: 18,
+        y: 170,
+        fill: "#cbd5e1",
+        "font-size": 12,
+        transform: "rotate(-90 18 170)",
+        "text-anchor": "middle"
+    }, svg, "Signal Intensity (arbitrary units)");
+
+    // CONNECT OBSERVATION POINTS
+    const points = observations.map((obs, i) =>
+        `${x(i)},${y(obs.intensity)}`
+    ).join(" ");
+
+    add("polyline", {
+        points: points,
+        fill: "none",
+        stroke: "#fbbf24",
+        "stroke-width": 3,
+        "stroke-linejoin": "round",
+        "stroke-linecap": "round"
+    });
+
+    // INTERACTIVE POINTS
+    observations.forEach((obs, i) => {
+        const circle = add("circle", {
+            cx: x(i),
+            cy: y(obs.intensity),
+            r: 7,
+            fill: "#f59e0b",
+            stroke: "#ffffff",
+            "stroke-width": 2,
+            tabindex: 0,
+            role: "button",
+            "aria-label":
+                `${obs.date}: intensity ${obs.intensity}`,
+            style: "cursor:pointer"
+        });
+
+        function showDetails() {
+            info.textContent =
+                `Observation: ${obs.date} UTC | ` +
+                `Simulated intensity: ${obs.intensity} ` +
+                `(arbitrary units)`;
         }
-    };
 
-    const layout = {
-        title: {
-            text: "Signal Evolution Over Time",
-            font: { color: "#ffffff", size: 17 }
-        },
-        paper_bgcolor: "#111827",
-        plot_bgcolor: "#111827",
-        font: { color: "#cbd5e1" },
-        xaxis: {
-            title: { text: "Observation Date" },
-            gridcolor: "#374151"
-        },
-        yaxis: {
-            title: { text: "Signal Intensity (arbitrary units)" },
-            gridcolor: "#374151"
-        },
-        margin: { t: 65, r: 25, b: 65, l: 65 },
-        autosize: true
-    };
+        circle.addEventListener("click", showDetails);
 
-    Plotly.newPlot(
-        "temporal-chart",
-        [trace],
-        layout,
-        { responsive: true, displaylogo: false }
-    );
+        circle.addEventListener("keydown", event => {
+            if (event.key === "Enter" ||
+                event.key === " ") {
+                event.preventDefault();
+                showDetails();
+            }
+        });
+
+        const tooltip = document.createElementNS(NS, "title");
+        tooltip.textContent =
+            `${obs.date}: ${obs.intensity}`;
+        circle.appendChild(tooltip);
+    });
+
+    // POPULATE OBSERVATION TABLE
+    observations.forEach(obs => {
+        const row = document.createElement("tr");
+
+        const values = [
+            obs.date,
+            "Barnard's Star",
+            "Simulated signal",
+            String(obs.intensity),
+            "N/A",
+            "Demonstration only"
+        ];
+
+        values.forEach(value => {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+        });
+
+        tbody.appendChild(row);
+    });
+
+    const loadingRow = tbody.querySelector(".tabla-vacia");
+
+    if (loadingRow) {
+        loadingRow.closest("tr").remove();
+    }
+
+})();
 </script>
+
 {% endblock %}
