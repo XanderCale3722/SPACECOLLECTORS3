@@ -837,3 +837,44 @@ body {
     border-radius: 50%;
     display: block;
 }
+
+/* MODAL PLACEHOLDER */
+
+.modal-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 350px;
+    background: radial-gradient(circle, #172b46, #080e19);
+    color: #50caff;
+    gap: 18px;
+}
+
+.modal-placeholder i {
+    font-size: 65px;
+}
+
+.modal-placeholder p {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+/* SELECTABLE CARDS */
+
+.imagen-astronomica {
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    text-align: center;
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
+}
+
+.imagen-astronomica:hover {
+    transform: translateY(-5px);
+    border-color: #50caff;
+}
