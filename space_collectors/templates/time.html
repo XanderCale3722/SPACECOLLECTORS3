@@ -37,7 +37,173 @@
             </span>
         </div>
 
-        <!-- SECTION 1: TEMPORAL CHART -->
+        <!-- ASTRONOMICAL OBJECT SEARCH -->
+<h2 class="subtitulo-seccion animar">
+    <i class="fas fa-search" style="color:#fbbf24;"></i>
+    Explore a Sky Region
+</h2>
+
+<div class="animar" style="
+    background:#111827;
+    border:1px solid #374151;
+    border-radius:14px;
+    padding:24px;
+    margin-bottom:30px;
+">
+    <h3 style="color:white;">
+        Select an Astronomical Object
+    </h3>
+
+    <label for="object-select" style="color:#cbd5e1;">
+        Celestial Object
+    </label>
+
+    <select id="object-select" style="
+        width:100%;
+        padding:12px;
+        margin:10px 0 20px;
+        border-radius:8px;
+        background:#1f2937;
+        color:white;
+        border:1px solid #4b5563;
+    ">
+        <option value="">Custom Coordinates</option>
+        <option value="barnard">Barnard's Star</option>
+        <option value="epsilon">Epsilon Indi B</option>
+        <option value="wise">WISE 0855</option>
+        <option value="rw">RW Aurigae</option>
+        <option value="r">R Draconis</option>
+    </select>
+
+    <div style="display:flex;gap:15px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:180px;">
+            <label for="ra-input" style="color:#cbd5e1;">
+                Right Ascension (RA)
+            </label>
+            <input id="ra-input" type="number"
+                min="0" max="360" step="any"
+                placeholder="Degrees (0–360)"
+                style="width:100%;padding:12px;
+                box-sizing:border-box;border-radius:8px;">
+        </div>
+
+        <div style="flex:1;min-width:180px;">
+            <label for="dec-input" style="color:#cbd5e1;">
+                Declination (Dec)
+            </label>
+            <input id="dec-input" type="number"
+                min="-90" max="90" step="any"
+                placeholder="Degrees (-90 to 90)"
+                style="width:100%;padding:12px;
+                box-sizing:border-box;border-radius:8px;">
+        </div>
+    </div>
+
+    <button id="search-sky" type="button" style="
+        margin-top:20px;
+        padding:12px 24px;
+        background:#fbbf24;
+        color:#111827;
+        border:none;
+        border-radius:8px;
+        font-weight:bold;
+        cursor:pointer;
+    ">
+        <i class="fas fa-search"></i>
+        Search Observations
+    </button>
+
+    <p id="search-status"
+       role="status"
+       aria-live="polite"
+       style="color:#cbd5e1;margin-top:15px;">
+        Enter coordinates to prepare a sky-region search.
+    </p>
+</div>
+<!-- TIME-LAPSE IMAGE VIEWER -->
+<h2 class="subtitulo-seccion animar">
+    <i class="fas fa-film" style="color:#fbbf24;"></i>
+    SPHEREx Time-Lapse Viewer
+</h2>
+
+<div class="animar" style="
+    background:#111827;
+    border:1px solid #374151;
+    border-radius:14px;
+    padding:24px;
+    margin-bottom:30px;
+    text-align:center;
+">
+    <h3 style="color:white;">
+        Sky Observations Over Time
+    </h3>
+
+    <div id="image-viewer" style="
+        background:#030712;
+        border:1px solid #374151;
+        border-radius:12px;
+        min-height:300px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin:20px 0;
+        overflow:hidden;
+    ">
+        <img id="time-image" alt="SPHEREx observation"
+             style="display:none;max-width:100%;
+                    max-height:500px;object-fit:contain;">
+
+        <p id="viewer-placeholder"
+           style="color:#94a3b8;padding:20px;">
+            No observations loaded yet.
+            Select a sky region to begin.
+        </p>
+    </div>
+
+    <p id="frame-date" style="color:#cbd5e1;">
+        Observation date: Not available
+    </p>
+
+    <div style="
+        display:flex;
+        justify-content:center;
+        gap:12px;
+        flex-wrap:wrap;
+        margin:20px 0;
+    ">
+        <button id="prev-frame" type="button" disabled>
+            <i class="fas fa-backward"></i> Previous
+        </button>
+
+        <button id="play-frames" type="button" disabled>
+            <i class="fas fa-play"></i> Play
+        </button>
+
+        <button id="pause-frames" type="button" disabled>
+            <i class="fas fa-pause"></i> Pause
+        </button>
+
+        <button id="next-frame" type="button" disabled>
+            Next <i class="fas fa-forward"></i>
+        </button>
+    </div>
+
+    <label for="playback-speed" style="color:#cbd5e1;">
+        Playback Speed
+    </label>
+
+    <select id="playback-speed">
+        <option value="2000">0.5x</option>
+        <option value="1000" selected>1x</option>
+        <option value="500">2x</option>
+        <option value="250">4x</option>
+    </select>
+
+    <p id="frame-counter" style="color:#94a3b8;">
+        Frame 0 of 0
+    </p>        
+</div>
+    <!-- SECTION 1: TEMPORAL CHART -->
 
         <h2 class="subtitulo-seccion animar">
             <i class="fas fa-chart-line"
@@ -352,5 +518,163 @@
 
 })();
 </script>
+<script>
+(function () {
+    "use strict";
 
+    const objects = {
+        barnard: { ra: 269.4521, dec: 4.6934 },
+        epsilon: { ra: 331.7667, dec: -56.7794 },
+        wise: { ra: 133.795129, dec: -7.245147 },
+        rw: { ra: 76.9567, dec: 30.4014 },
+        r: { ra: 248.1867, dec: 66.6311 }
+    };
+
+    const selector = document.getElementById("object-select");
+    const raInput = document.getElementById("ra-input");
+    const decInput = document.getElementById("dec-input");
+    const searchButton = document.getElementById("search-sky");
+    const status = document.getElementById("search-status");
+
+    if (!selector || !raInput || !decInput ||
+        !searchButton || !status) return;
+
+    selector.addEventListener("change", function () {
+        const selected = objects[selector.value];
+
+        if (selected) {
+            raInput.value = selected.ra;
+            decInput.value = selected.dec;
+            status.textContent =
+                "Coordinates loaded. Ready to search observations.";
+        } else {
+            raInput.value = "";
+            decInput.value = "";
+            status.textContent =
+                "Enter custom coordinates to search.";
+        }
+    });
+
+    searchButton.addEventListener("click", function () {
+        const ra = Number(raInput.value);
+        const dec = Number(decInput.value);
+
+        if (
+            raInput.value.trim() === "" ||
+            decInput.value.trim() === "" ||
+            !Number.isFinite(ra) ||
+            !Number.isFinite(dec) ||
+            ra < 0 || ra >= 360 ||
+            dec < -90 || dec > 90
+        ) {
+            status.textContent =
+                "Please enter valid RA (0 to <360) and Dec (-90 to 90).";
+            return;
+        }
+
+        status.textContent =
+            `Selected region: RA ${ra.toFixed(4)}°, ` +
+            `Dec ${dec.toFixed(4)}°. ` +
+            "Image search will be available when " +
+            "the SPHEREx data service is connected.";
+    });
+})();
+</script>
+<script>
+(function () {
+    "use strict";
+
+    // Real observations will be added here
+    // after FITS data processing and validation.
+    const frames = [];
+
+    const image = document.getElementById("time-image");
+    const placeholder = document.getElementById("viewer-placeholder");
+    const dateLabel = document.getElementById("frame-date");
+    const counter = document.getElementById("frame-counter");
+    const previous = document.getElementById("prev-frame");
+    const play = document.getElementById("play-frames");
+    const pause = document.getElementById("pause-frames");
+    const next = document.getElementById("next-frame");
+    const speed = document.getElementById("playback-speed");
+
+    if (!image || !placeholder || !dateLabel ||
+        !counter || !previous || !play ||
+        !pause || !next || !speed) return;
+
+    let currentFrame = 0;
+    let timer = null;
+
+    function stopPlayback() {
+        if (timer !== null) {
+            clearInterval(timer);
+            timer = null;
+        }
+    }
+
+    function showFrame(index) {
+        if (frames.length === 0) {
+            image.style.display = "none";
+            placeholder.style.display = "block";
+            placeholder.textContent =
+                "No validated SPHEREx observations loaded.";
+            dateLabel.textContent =
+                "Observation date: Not available";
+            counter.textContent = "Frame 0 of 0";
+            return;
+        }
+
+        currentFrame =
+            (index + frames.length) % frames.length;
+
+        const frame = frames[currentFrame];
+
+        image.src = frame.url;
+        image.style.display = "block";
+        placeholder.style.display = "none";
+
+        dateLabel.textContent =
+            "Observation date: " + frame.date;
+
+        counter.textContent =
+            `Frame ${currentFrame + 1} of ${frames.length}`;
+    }
+
+    function startPlayback() {
+        if (frames.length < 2) return;
+
+        stopPlayback();
+
+        timer = setInterval(function () {
+            showFrame(currentFrame + 1);
+        }, Number(speed.value));
+    }
+
+    previous.addEventListener("click", function () {
+        stopPlayback();
+        showFrame(currentFrame - 1);
+    });
+
+    next.addEventListener("click", function () {
+        stopPlayback();
+        showFrame(currentFrame + 1);
+    });
+
+    play.addEventListener("click", startPlayback);
+    pause.addEventListener("click", stopPlayback);
+
+    speed.addEventListener("change", function () {
+        if (timer !== null) startPlayback();
+    });
+
+    const ready = frames.length > 1;
+
+    previous.disabled = !ready;
+    play.disabled = !ready;
+    pause.disabled = !ready;
+    next.disabled = !ready;
+
+    showFrame(0);
+})();
+</script>
 {% endblock %}
