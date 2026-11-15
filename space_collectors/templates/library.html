@@ -40,28 +40,129 @@
             Image Gallery
         </h2>
 
-        <div class="grid-contenido grid-3">
-            <!-- IMAGEN 1 — reemplazar cuando lleguen los datos -->
-            <div class="placeholder-box animar">
-                <i class="fas fa-image"></i>
-                <span class="ph-titulo">Sky Image 1</span>
-                <span class="ph-nota">Add telescope image here</span>
-            </div>
+        
+<div class="grid-contenido grid-3">
 
-            <!-- IMAGEN 2 -->
-            <div class="placeholder-box animar">
-                <i class="fas fa-image"></i>
-                <span class="ph-titulo">Sky Image 2</span>
-                <span class="ph-nota">Add telescope image here</span>
-            </div>
+    <button class="placeholder-box animar imagen-astronomica"
+        data-name="Astronomical Object 01"
+        data-description="Discover the characteristics and scientific information of this astronomical observation."
+        data-date="Observation date: Pending"
+        data-coordinates="Coordinates: Pending">
 
-            <!-- IMAGEN 3 -->
-            <div class="placeholder-box animar">
-                <i class="fas fa-image"></i>
-                <span class="ph-titulo">Sky Image 3</span>
-                <span class="ph-nota">Add telescope image here</span>
+        <i class="fas fa-satellite"></i>
+        <span class="ph-titulo">Astronomical Object 01</span>
+        <span class="ph-nota">Coming soon</span>
+    </button>
+
+    <button class="placeholder-box animar imagen-astronomica"
+        data-name="Astronomical Object 02"
+        data-description="Explore this astronomical observation and learn more about the objects captured by SPHEREx."
+        data-date="Observation date: Pending"
+        data-coordinates="Coordinates: Pending">
+
+        <i class="fas fa-star"></i>
+        <span class="ph-titulo">Astronomical Object 02</span>
+        <span class="ph-nota">Coming soon</span>
+    </button>
+
+    <button class="placeholder-box animar imagen-astronomica"
+        data-name="Astronomical Object 03"
+        data-description="Discover new details about the universe through astronomical observations."
+        data-date="Observation date: Pending"
+        data-coordinates="Coordinates: Pending">
+
+        <i class="fas fa-meteor"></i>
+        <span class="ph-titulo">Astronomical Object 03</span>
+        <span class="ph-nota">Coming soon</span>
+    </button>
+
+</div>
+
+<div id="imageModal" class="image-modal" aria-hidden="true">
+
+    <div class="modal-content">
+
+        <button class="modal-close" id="closeModal">&times;</button>
+
+        <div class="modal-image-container">
+            <div class="modal-placeholder" id="modalPlaceholder">
+                <i class="fas fa-satellite"></i>
+                <p>ASTRONOMICAL IMAGE COMING SOON</p>
             </div>
         </div>
+
+        <div class="modal-information">
+
+            <span class="modal-category">SPACE COLLECTORS / EXPLORER</span>
+
+            <h2 id="modalTitle"></h2>
+
+            <p id="modalDescription"></p>
+
+            <div class="modal-data">
+                <p id="modalDate"></p>
+                <p id="modalCoordinates"></p>
+            </div>
+
+            <span class="modal-footer">DISCOVER THE UNIVERSE</span>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const cards = document.querySelectorAll(".imagen-astronomica");
+    const modal = document.getElementById("imageModal");
+    const closeButton = document.getElementById("closeModal");
+
+    cards.forEach(card => {
+        card.addEventListener("click", function () {
+
+            document.getElementById("modalTitle").textContent =
+                card.dataset.name;
+
+            document.getElementById("modalDescription").textContent =
+                card.dataset.description;
+
+            document.getElementById("modalDate").textContent =
+                card.dataset.date;
+
+            document.getElementById("modalCoordinates").textContent =
+                card.dataset.coordinates;
+
+            modal.classList.add("active");
+            modal.setAttribute("aria-hidden", "false");
+
+            document.body.style.overflow = "hidden";
+        });
+    });
+
+    function closeModal() {
+        modal.classList.remove("active");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+    }
+
+    closeButton.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", function(event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            closeModal();
+        }
+    });
+
+});
+</script>
+
 
         </table>
 
