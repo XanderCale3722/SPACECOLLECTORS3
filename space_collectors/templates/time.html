@@ -283,29 +283,31 @@
             Before / After Comparison
         </h2>
 
-        <div class="grid-contenido grid-2">
+                <div class="grid-contenido grid-2">
 
-            <div class="placeholder-box animar">
-                <i class="fas fa-image"></i>
-                <span class="ph-titulo">
-                    Observation — Early Date
-                </span>
-                <span class="ph-nota">
-                    Awaiting validated SPHEREx image
-                </span>
+            <div class="animar" style="background:#111827;border:1px solid #374151;border-radius:14px;padding:16px;text-align:center;">
+                <h3 style="color:#ffffff;">Observation — Early Date</h3>
+                <div style="background:#030712;border-radius:10px;min-height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+                    <img id="ba-early-img" alt="Early observation"
+                         style="display:none;max-width:100%;max-height:420px;object-fit:contain;">
+                    <p id="ba-early-ph" style="color:#94a3b8;padding:20px;">Loading image...</p>
+                </div>
+                <p id="ba-early-info" style="color:#cbd5e1;font-size:13px;margin-top:12px;"></p>
             </div>
 
-            <div class="placeholder-box animar">
-                <i class="fas fa-image"></i>
-                <span class="ph-titulo">
-                    Observation — Recent Date
-                </span>
-                <span class="ph-nota">
-                    Awaiting validated SPHEREx image
-                </span>
+            <div class="animar" style="background:#111827;border:1px solid #374151;border-radius:14px;padding:16px;text-align:center;">
+                <h3 style="color:#ffffff;">Observation — Recent Date</h3>
+                <div style="background:#030712;border-radius:10px;min-height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+                    <img id="ba-recent-img" alt="Recent observation"
+                         style="display:none;max-width:100%;max-height:420px;object-fit:contain;">
+                    <p id="ba-recent-ph" style="color:#94a3b8;padding:20px;">Loading image...</p>
+                </div>
+                <p id="ba-recent-info" style="color:#cbd5e1;font-size:13px;margin-top:12px;"></p>
             </div>
 
         </div>
+
+        <p id="ba-summary" style="color:#cbd5e1;font-size:13px;margin-top:15px;"></p>
 
     </div>
 </section>
@@ -807,6 +809,82 @@
         .catch(() => {
             tbody.innerHTML =
                 '<tr><td colspan="6" class="tabla-vacia">Could not load sky_data.json.</td></tr>';
+        });
+})();
+</script>
+<script>
+(function () {
+    "use strict";
+
+    // Cambia estos nombres para comparar otras observaciones
+    const EARLY = "SPS_122980_S12";   // 12 de mayo de 2025
+    const RECENT = "SPS_121360_S12";  // 16 de junio de 2025
+
+    const IMG_FOLDER = "{{ url_for('static', filename='img/sky/') }}";
+    const DATA_URL = "{{ url_for('static', filename='data/sky_data.json') }}";
+
+    function separation(ra1, d1, ra2, d2) {
+        const r = Math.PI / 180;
+        const c = Math.sin(d1 * r) * Math.sin(d2 * r) +
+                  Math.cos(d1 * r) * Math.cos(d2 * r) *
+                  Math.cos((ra1 - ra2) * r);
+        return Math.acos(Math.max(-1, Math.min(1, c))) / r;
+    }
+
+    function fill(prefix, d) {
+        const img = document.getElementById(prefix + "-img");
+        const ph = document.getElementById(prefix + "-ph");
+        const info = document.getElementById(prefix + "-info");
+        if (!img || !ph || !info) return;
+
+        if (!d) {
+            ph.textContent = "Observation not found in sky_data.json.";
+            return;
+        }
+
+        img.onload = function () {
+            ph.style.display = "none";
+            img.style.display = "block";
+        };
+        img.onerror = function () {
+            img.style.display = "none";
+            ph.style.display = "block";
+            ph.textContent = "Image not found: " + d.imagen;
+        };
+        img.src = IMG_FOLDER + d.imagen;
+
+        info.textContent =
+            d.nombre + " | " +
+            d.fecha_obs.replace("T", " ").slice(0, 19) + " UTC | " +
+            "Detector " + d.detector + " | " +
+            "RA " + d.ra.toFixed(3) + "°, Dec " + d.dec.toFixed(3) + "°";
+    }
+
+    fetch(DATA_URL)
+        .then(r => r.json())
+        .then(json => {
+            const early = json.find(d => d.nombre === EARLY);
+            const recent = json.find(d => d.nombre === RECENT);
+
+            fill("ba-early", early);
+            fill("ba-recent", recent);
+
+            const summary = document.getElementById("ba-summary");
+            if (summary && early && recent) {
+                const sep = separation(early.ra, early.dec, recent.ra, recent.dec);
+                let text = "Angular distance between the two pointings: " +
+                           sep.toFixed(2) + "°.";
+                if (early.detector !== recent.detector) {
+                    text += " Different detectors (" + early.detector + " and " +
+                            recent.detector + "): the images may not be " +
+                            "directly comparable.";
+                }
+                summary.textContent = text;
+            }
+        })
+        .catch(() => {
+            const summary = document.getElementById("ba-summary");
+            if (summary) summary.textContent = "Could not load sky_data.json.";
         });
 })();
 </script>
