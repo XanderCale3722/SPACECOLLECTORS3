@@ -2,7 +2,7 @@
  {
   "id": "level2_2025W20_1C_0003_3D3_spx_l2b-v27-2026-198",
   "nombre": "SPS_122980_S12",
-  "imagen": "level2_2025W20_1C_0003_3D3_spx_l2b-v27-2026-198_01_IMAGE.png",
+  "imagen": "level2_2025W20_1C_0003_3D3_spx_l2b-v27-2026-198_01_IMAGE.jpg",
   "obsid": "2025W20_1C_0003_3",
   "detector": "3",
   "fecha_obs": "2025-05-12T00:33:40.108",
@@ -52,7 +52,7 @@
  {
   "id": "level2_2025W20_1C_0003_4D3_spx_l2b-v27-2026-198",
   "nombre": "SPS_122981_S12",
-  "imagen": "level2_2025W20_1C_0003_4D3_spx_l2b-v27-2026-198_01_IMAGE.png",
+  "imagen": "level2_2025W20_1C_0003_4D3_spx_l2b-v27-2026-198_01_IMAGE.jpg",
   "obsid": "2025W20_1C_0003_4",
   "detector": "3",
   "fecha_obs": "2025-05-12T00:35:49.037",
@@ -102,7 +102,7 @@
  {
   "id": "level2_2025W20_1C_0004_1D3_spx_l2b-v27-2026-198",
   "nombre": "SPS_139166_S12",
-  "imagen": "level2_2025W20_1C_0004_1D3_spx_l2b-v27-2026-198_01_IMAGE.png",
+  "imagen": "level2_2025W20_1C_0004_1D3_spx_l2b-v27-2026-198_01_IMAGE.jpg",
   "obsid": "2025W20_1C_0004_1",
   "detector": "3",
   "fecha_obs": "2025-05-12T00:39:25.457",
@@ -152,7 +152,7 @@
  {
   "id": "level2_2025W20_1C_0004_2D3_spx_l2b-v27-2026-198",
   "nombre": "SPS_139167_S12",
-  "imagen": "level2_2025W20_1C_0004_2D3_spx_l2b-v27-2026-198_01_IMAGE.png",
+  "imagen": "level2_2025W20_1C_0004_2D3_spx_l2b-v27-2026-198_01_IMAGE.jpg",
   "obsid": "2025W20_1C_0004_2",
   "detector": "3",
   "fecha_obs": "2025-05-12T00:41:34.388",
@@ -202,7 +202,7 @@
  {
   "id": "level2_2025W20_1C_0004_3D3_spx_l2b-v27-2026-198",
   "nombre": "SPS_139168_S12",
-  "imagen": "level2_2025W20_1C_0004_3D3_spx_l2b-v27-2026-198_01_IMAGE.png",
+  "imagen": "level2_2025W20_1C_0004_3D3_spx_l2b-v27-2026-198_01_IMAGE.jpg",
   "obsid": "2025W20_1C_0004_3",
   "detector": "3",
   "fecha_obs": "2025-05-12T00:43:43.319",
@@ -252,7 +252,7 @@
  {
   "id": "level2_2025W20_1C_0004_4D3_spx_l2b-v27-2026-198",
   "nombre": "SPS_139169_S12",
-  "imagen": "level2_2025W20_1C_0004_4D3_spx_l2b-v27-2026-198_01_IMAGE.png",
+  "imagen": "level2_2025W20_1C_0004_4D3_spx_l2b-v27-2026-198_01_IMAGE.jpg",
   "obsid": "2025W20_1C_0004_4",
   "detector": "3",
   "fecha_obs": "2025-05-12T00:45:52.249",
@@ -302,7 +302,7 @@
  {
   "id": "level2_2025W20_1C_0005_1D3_spx_l2b-v27-2026-198",
   "nombre": "SPS_276628_S12",
-  "imagen": "level2_2025W20_1C_0005_1D3_spx_l2b-v27-2026-198_01_IMAGE.png",
+  "imagen": "level2_2025W20_1C_0005_1D3_spx_l2b-v27-2026-198_01_IMAGE.jpg",
   "obsid": "2025W20_1C_0005_1",
   "detector": "3",
   "fecha_obs": "2025-05-12T00:48:53.366",
@@ -352,7 +352,7 @@
  {
   "id": "level2_2025W20_1C_0005_2D3_spx_l2b-v27-2026-198",
   "nombre": "SPS_276629_S12",
-  "imagen": "level2_2025W20_1C_0005_2D3_spx_l2b-v27-2026-198_01_IMAGE.png",
+  "imagen": "level2_2025W20_1C_0005_2D3_spx_l2b-v27-2026-198_01_IMAGE.jpg",
   "obsid": "2025W20_1C_0005_2",
   "detector": "3",
   "fecha_obs": "2025-05-12T00:51:02.297",
@@ -402,7 +402,7 @@
  {
   "id": "level2_2025W20_1C_0005_3D3_spx_l2b-v27-2026-198",
   "nombre": "SPS_276630_S12",
-  "imagen": "level2_2025W20_1C_0005_3D3_spx_l2b-v27-2026-198_01_IMAGE.png",
+  "imagen": "level2_2025W20_1C_0005_3D3_spx_l2b-v27-2026-198_01_IMAGE.jpg",
   "obsid": "2025W20_1C_0005_3",
   "detector": "3",
   "fecha_obs": "2025-05-12T00:53:11.227",
@@ -452,7 +452,7 @@
  {
   "id": "level2_2025W20_1C_0005_4D3_spx_l2b-v27-2026-198",
   "nombre": "SPS_276631_S12",
-  "imagen": "level2_2025W20_1C_0005_4D3_spx_l2b-v27-2026-198_01_IMAGE.png",
+  "imagen": "level2_2025W20_1C_0005_4D3_spx_l2b-v27-2026-198_01_IMAGE.jpg",
   "obsid": "2025W20_1C_0005_4",
   "detector": "3",
   "fecha_obs": "2025-05-12T00:55:20.159",
