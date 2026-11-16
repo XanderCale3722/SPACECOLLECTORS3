@@ -1,62 +1,75 @@
+{% extends 'base.html' %}
+{% block titulo %}Space Library{% endblock %}
+
+{% block contenido %}
+
 <style>
-  /* ====== Ventana emergente de la imagen ====== */
-  #imageModal {
+  /* ====== Tarjetas de la galería ====== */
+  #galleryGrid .imagen-astronomica {
+    opacity: 1 !important;
+    transform: none !important;
+    cursor: pointer;
+  }
+  #galleryGrid .gallery-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+  }
+
+  /* ====== Ventana emergente (nombres propios: lib-) ====== */
+  #libModal {
     display: none;
     position: fixed;
-    inset: 0;
+    top: 0; right: 0; bottom: 0; left: 0;
     z-index: 9999;
     align-items: center;
     justify-content: center;
     padding: 24px;
     background: rgba(2, 8, 16, 0.88);
-    backdrop-filter: blur(6px);
     overflow-y: auto;
   }
-  #imageModal.active { display: flex; }
+  #libModal.lib-abierto { display: flex; }
 
-  #imageModal .modal-content {
+  .lib-box {
     position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
     width: min(1000px, 100%);
     max-height: 90vh;
     background: #0b1622;
+    color: #e8f1f8;
     border: 1px solid rgba(34, 211, 238, 0.35);
     border-radius: 18px;
     box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
     overflow: hidden;
   }
-
-  #imageModal .modal-image-container {
+  .lib-img {
     display: flex;
     align-items: center;
     justify-content: center;
     background: #000;
     min-height: 280px;
   }
-  #imageModal .modal-image-container img {
+  .lib-img img {
     width: 100%;
     height: 100%;
     max-height: 90vh;
     object-fit: contain;
     display: block;
   }
-
-  #imageModal .modal-information {
+  .lib-info {
     display: flex;
     flex-direction: column;
     gap: 14px;
     padding: 56px 28px 28px;
     overflow-y: auto;
   }
-  #imageModal .modal-category {
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: var(--cyan, #22d3ee);
-  }
-  #imageModal .modal-information h2 { margin: 0; font-size: 26px; }
-  #imageModal .modal-information p { margin: 0; line-height: 1.6; opacity: 0.85; }
-  #imageModal .modal-data {
+  .lib-cat { font-size: 12px; letter-spacing: 2px; color: #22d3ee; }
+  .lib-info h2 { margin: 0; font-size: 26px; color: #fff; }
+  .lib-info p { margin: 0; line-height: 1.6; opacity: 0.85; }
+  .lib-datos {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -66,15 +79,10 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 14px;
   }
-  #imageModal .modal-footer {
-    margin-top: auto;
-    font-size: 11px;
-    letter-spacing: 3px;
-    opacity: 0.5;
-  }
+  .lib-pie { margin-top: auto; font-size: 11px; letter-spacing: 3px; opacity: 0.5; }
 
   /* ====== Botón X ====== */
-  #imageModal .modal-close {
+  .lib-cerrar {
     position: absolute;
     top: 14px;
     right: 14px;
@@ -89,29 +97,183 @@
     line-height: 1;
     color: #fff;
     background: rgba(11, 22, 34, 0.85);
-    border: 2px solid var(--cyan, #22d3ee);
+    border: 2px solid #22d3ee;
     border-radius: 50%;
     cursor: pointer;
     transition: background 0.2s, color 0.2s, transform 0.2s;
   }
-  #imageModal .modal-close:hover {
-    background: var(--cyan, #22d3ee);
-    color: #04141c;
-    transform: rotate(90deg);
-  }
-  #imageModal .modal-close:focus-visible {
-    outline: 3px solid #fff;
-    outline-offset: 3px;
-  }
+  .lib-cerrar:hover { background: #22d3ee; color: #04141c; transform: rotate(90deg); }
+  .lib-cerrar:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 
-  /* ====== Celular / pantallas angostas ====== */
+  /* ====== Celular ====== */
   @media (max-width: 760px) {
-    #imageModal { padding: 12px; align-items: flex-start; }
-    #imageModal .modal-content {
-      grid-template-columns: 1fr;
-      max-height: none;
-    }
-    #imageModal .modal-image-container { min-height: 220px; }
-    #imageModal .modal-information { padding: 20px; }
+    #libModal { padding: 12px; align-items: flex-start; }
+    .lib-box { grid-template-columns: 1fr; max-height: none; }
+    .lib-img { min-height: 220px; }
+    .lib-info { padding: 20px; }
   }
 </style>
+
+<section class="pagina">
+
+    <div class="pagina-encabezado">
+        <div class="pagina-breadcrumb">
+            <a href="{{ url_for('inicio') }}">Home</a>
+            <i class="fas fa-chevron-right" style="font-size:10px; opacity:0.5;"></i>
+            <span>Space Library</span>
+        </div>
+        <h1 class="pagina-titulo">
+            <span class="icono-pagina" style="background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.2); color:#34d399;">
+                <i class="fas fa-book-open"></i>
+            </span>
+            Space Library
+        </h1>
+        <p class="pagina-descripcion">
+            Here, you can select an image captured by SPHEREx and explore
+            the data behind what you are observing. Discover valuable information
+            about astronomical objects, uncover their hidden characteristics, and keep learning
+            as you explore the universe!
+        </p>
+    </div>
+
+    <div class="pagina-contenido">
+
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-images" style="color:var(--cyan); margin-right:10px;"></i>
+            Image Gallery
+        </h2>
+
+        <div class="grid-contenido grid-3" id="galleryGrid">
+            <!-- Las tarjetas se insertan aquí con JavaScript -->
+        </div>
+
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-wrench" style="color:#34d399; margin-right:10px;"></i>
+            Tools &amp; Technologies
+        </h2>
+
+        <div class="grid-contenido grid-3">
+            <div class="placeholder-box animar">
+                <i class="fab fa-python"></i>
+                <span class="ph-titulo">Python + Flask</span>
+                <span class="ph-nota">Web framework</span>
+            </div>
+            <div class="placeholder-box animar">
+                <i class="fas fa-chart-bar"></i>
+                <span class="ph-titulo">[Library — Add]</span>
+                <span class="ph-nota">Data visualization</span>
+            </div>
+            <div class="placeholder-box animar">
+                <i class="fas fa-satellite"></i>
+                <span class="ph-titulo">[Tool — Add]</span>
+                <span class="ph-nota">Data processing</span>
+            </div>
+        </div>
+
+    </div><!-- /pagina-contenido -->
+</section>
+
+<!-- Ventana emergente -->
+<div id="libModal" aria-hidden="true">
+    <div class="lib-box">
+        <button class="lib-cerrar" id="libCerrar" type="button" aria-label="Close">&times;</button>
+
+        <div class="lib-img">
+            <img id="libImagen" src="" alt="Astronomical observation">
+        </div>
+
+        <div class="lib-info">
+            <span class="lib-cat">SPACE COLLECTORS / EXPLORER</span>
+            <h2 id="libTitulo"></h2>
+            <p id="libDescripcion"></p>
+            <div class="lib-datos">
+                <p id="libFecha"></p>
+                <p id="libCoord"></p>
+            </div>
+            <span class="lib-pie">DISCOVER THE UNIVERSE</span>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    var URL_DATOS = "{{ url_for('static', filename='data/sky_data.json') }}";
+    var CARPETA_IMG = "{{ url_for('static', filename='img/sky/') }}";
+
+    var grid = document.getElementById("galleryGrid");
+    var modal = document.getElementById("libModal");
+    var imagen = document.getElementById("libImagen");
+
+    function crearTarjeta(d) {
+        var src = CARPETA_IMG + d.imagen;
+
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "placeholder-box imagen-astronomica";
+        btn.dataset.name = d.nombre;
+        btn.dataset.description = "Discover the characteristics and scientific information of this astronomical observation.";
+        btn.dataset.date = "Observation date: " + (d.fecha_obs || "—");
+        btn.dataset.coordinates = "Coordinates: RA / DEC (degrees) " +
+            Number(d.ra).toFixed(4) + " / " + Number(d.dec).toFixed(4);
+        btn.dataset.image = src;
+
+        var img = document.createElement("img");
+        img.src = src;
+        img.alt = d.nombre;
+        img.className = "gallery-image";
+        img.loading = "lazy";
+
+        var titulo = document.createElement("span");
+        titulo.className = "ph-titulo";
+        titulo.textContent = d.nombre;
+
+        var nota = document.createElement("span");
+        nota.className = "ph-nota";
+        nota.textContent = "Explore observation";
+
+        btn.appendChild(img);
+        btn.appendChild(titulo);
+        btn.appendChild(nota);
+        return btn;
+    }
+
+    function abrir(card) {
+        document.getElementById("libTitulo").textContent = card.dataset.name;
+        document.getElementById("libDescripcion").textContent = card.dataset.description;
+        document.getElementById("libFecha").textContent = card.dataset.date;
+        document.getElementById("libCoord").textContent = card.dataset.coordinates;
+        imagen.src = card.dataset.image;
+        imagen.alt = card.dataset.name;
+        modal.classList.add("lib-abierto");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+    }
+
+    function cerrar() {
+        modal.classList.remove("lib-abierto");
+        modal.setAttribute("aria-hidden", "true");
+        imagen.src = "";
+        document.body.style.overflow = "";
+    }
+
+    fetch(URL_DATOS)
+        .then(function (r) { return r.json(); })
+        .then(function (datos) {
+            datos.forEach(function (d) { grid.appendChild(crearTarjeta(d)); });
+        })
+        .catch(function () {
+            grid.textContent = "Could not load the image gallery (sky_data.json).";
+        });
+
+    grid.addEventListener("click", function (e) {
+        var card = e.target.closest(".imagen-astronomica");
+        if (card) abrir(card);
+    });
+    document.getElementById("libCerrar").addEventListener("click", cerrar);
+    modal.addEventListener("click", function (e) { if (e.target === modal) cerrar(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") cerrar(); });
+});
+</script>
+
+{% endblock %}
