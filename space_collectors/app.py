@@ -8,7 +8,8 @@
 #    2. Instala Flask:   pip install flask
 #    3. Ejecuta:         python app.py
 #    4. Abre el navegador en: http://localhost:5000
-#
+#    4. Abre la web desde render con: https://spacecollectors3.onrender.com
+
 
 from flask import Flask, render_template
 
