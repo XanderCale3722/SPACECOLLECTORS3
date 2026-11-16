@@ -55,6 +55,97 @@
         </div>
 
     </div><!-- /pagina-contenido -->
+
+<!-- ==========================================
+     IMAGE GALLERY — SPHEREX
+========================================== -->
+
+<h2 class="subtitulo-seccion animar">
+    <i class="fas fa-images" style="color:#a78bfa; margin-right:10px;"></i>
+    Astronomical Image Gallery
+</h2>
+
+<p class="galeria-descripcion">
+    Explore astronomical observations captured by SphereX.
+    Select an image to discover more details about each observation.
+</p>
+
+<div class="galeria-imagenes">
+
+    <!-- IMAGE 1 -->
+    <div class="galeria-item animar"
+         onclick="abrirImagen(this)">
+
+        <img src="{{ url_for('static', filename='img/galeria/imagen1.png') }}"
+             alt="Astronomical Observation 01">
+
+        <div class="galeria-info">
+            <span class="galeria-categoria">SPHEREX OBSERVATION</span>
+            <h3>Astronomical Object 01</h3>
+            <p>Deep space observation</p>
+        </div>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="galeria-item animar"
+         onclick="abrirImagen(this)">
+
+        <img src="{{ url_for('static', filename='img/galeria/imagen2.png') }}"
+             alt="Astronomical Observation 02">
+
+        <div class="galeria-info">
+            <span class="galeria-categoria">SPHEREX OBSERVATION</span>
+            <h3>Astronomical Object 02</h3>
+            <p>Cosmic region observation</p>
+        </div>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="galeria-item animar"
+         onclick="abrirImagen(this)">
+
+        <img src="{{ url_for('static', filename='img/galeria/imagen3.png') }}"
+             alt="Astronomical Observation 03">
+
+        <div class="galeria-info">
+            <span class="galeria-categoria">SPHEREX OBSERVATION</span>
+            <h3>Astronomical Object 03</h3>
+            <p>Infrared astronomical image</p>
+        </div>
+    </div>
+
+    <!-- IMAGE 4 -->
+    <div class="galeria-item animar"
+         onclick="abrirImagen(this)">
+
+        <img src="{{ url_for('static', filename='img/galeria/imagen4.png') }}"
+             alt="Astronomical Observation 04">
+
+        <div class="galeria-info">
+            <span class="galeria-categoria">SPHEREX OBSERVATION</span>
+            <h3>Astronomical Object 04</h3>
+            <p>Exploring the universe</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- IMAGE VIEWER / LIGHTBOX -->
+
+<div id="visor-imagen" class="visor-imagen"
+     onclick="cerrarImagen(event)">
+
+    <button class="visor-cerrar"
+            onclick="cerrarImagen(event)">
+        &times;
+    </button>
+
+    <img id="imagen-ampliada" src="" alt="Expanded astronomical image">
+
+    <p id="nombre-imagen"></p>
+
+</div>
+
 </section>
 
         <!-- =======================================================
