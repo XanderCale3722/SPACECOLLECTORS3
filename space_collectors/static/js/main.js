@@ -268,3 +268,48 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
+
+// OPEN IMAGE
+
+function abrirImagen(elemento) {
+
+    const imagen = elemento.querySelector("img");
+    const titulo = elemento.querySelector("h3").textContent;
+
+    document.getElementById("imagen-ampliada").src = imagen.src;
+
+    document.getElementById("nombre-imagen").textContent = titulo;
+
+    document.getElementById("visor-imagen").classList.add("activo");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+// CLOSE IMAGE
+
+function cerrarImagen(event) {
+
+    if (
+        event.target.id === "visor-imagen" ||
+        event.target.classList.contains("visor-cerrar")
+    ) {
+        document.getElementById("visor-imagen").classList.remove("activo");
+
+        document.body.style.overflow = "";
+    }
+}
+
+
+// CLOSE WITH ESCAPE KEY
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+
+        document.getElementById("visor-imagen").classList.remove("activo");
+
+        document.body.style.overflow = "";
+    }
+
+});
