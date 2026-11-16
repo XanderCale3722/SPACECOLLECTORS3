@@ -54,7 +54,7 @@ with fits.open(ruta_fits) as archivo:
             or primary.get("MJD-OBS")
         )
         if mjd is None:
-            raise ValueError("No se encontro la fecha de observacion")
+            raise ValueError("No se encontró la fecha de observacion")
 
         tiempo = Time(mjd, format="mjd", scale="utc")
 
