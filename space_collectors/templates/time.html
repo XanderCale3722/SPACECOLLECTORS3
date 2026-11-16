@@ -677,4 +677,46 @@
     showFrame(0);
 })();
 </script>
+<script>
+(function () {
+    "use strict";
+
+    const selector = document.getElementById("object-select");
+    const raInput = document.getElementById("ra-input");
+    const decInput = document.getElementById("dec-input");
+    const status = document.getElementById("search-status");
+    if (!selector || !raInput || !decInput || !status) return;
+
+    let presets = [];
+
+    fetch("{{ url_for('static', filename='data/sky_data.json') }}")
+        .then(r => r.json())
+        .then(json => {
+            presets = json;
+            const group = document.createElement("optgroup");
+            group.label = "Preset observations";
+            presets.forEach((d, i) => {
+                const o = document.createElement("option");
+                o.value = "preset-" + i;
+                const fecha = ((d.inicio && d.inicio.fecha) || "").slice(0, 10);
+                o.textContent = d.nombre + (fecha ? " — " + fecha : "");
+                group.appendChild(o);
+            });
+            selector.appendChild(group);
+        })
+        .catch(() => {
+            status.textContent = "Could not load sky_data.json.";
+        });
+
+    selector.addEventListener("change", function () {
+        if (!selector.value.startsWith("preset-")) return;
+        const d = presets[parseInt(selector.value.slice(7), 10)];
+        if (!d) return;
+        raInput.value = d.ra;
+        decInput.value = d.dec;
+        status.textContent =
+            "Preset loaded: " + d.nombre + ". Ready to search observations.";
+    });
+})();
+</script>
 {% endblock %}

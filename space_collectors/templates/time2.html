@@ -1,0 +1,680 @@
+{% extends 'base.html' %}
+{% block titulo %}Time Explorer{% endblock %}
+
+{% block contenido %}
+<section class="pagina">
+
+    <div class="pagina-encabezado">
+        <div class="pagina-breadcrumb">
+            <a href="{{ url_for('inicio') }}">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Time Explorer</span>
+        </div>
+
+        <h1 class="pagina-titulo">
+            <span class="icono-pagina"
+                  style="color:#fbbf24;">
+                <i class="fas fa-clock"></i>
+            </span>
+            Time Explorer
+        </h1>
+
+        <p class="pagina-descripcion">
+            Explore temporal changes in astronomical signals
+            and compare observations over time.
+        </p>
+    </div>
+
+    <div class="pagina-contenido">
+
+        <div class="aviso-pendiente animar">
+            <i class="fas fa-circle-info"></i>
+            <span>
+                <strong>Demonstration mode:</strong>
+                The chart currently uses simulated values.
+                Real SPHEREx observations will be added
+                after data validation.
+            </span>
+        </div>
+
+        <!-- ASTRONOMICAL OBJECT SEARCH -->
+<h2 class="subtitulo-seccion animar">
+    <i class="fas fa-search" style="color:#fbbf24;"></i>
+    Explore a Sky Region
+</h2>
+
+<div class="animar" style="
+    background:#111827;
+    border:1px solid #374151;
+    border-radius:14px;
+    padding:24px;
+    margin-bottom:30px;
+">
+    <h3 style="color:white;">
+        Select an Astronomical Object
+    </h3>
+
+    <label for="object-select" style="color:#cbd5e1;">
+        Celestial Object
+    </label>
+
+    <select id="object-select" style="
+        width:100%;
+        padding:12px;
+        margin:10px 0 20px;
+        border-radius:8px;
+        background:#1f2937;
+        color:white;
+        border:1px solid #4b5563;
+    ">
+        <option value="">Custom Coordinates</option>
+        <option value="barnard">Barnard's Star</option>
+        <option value="epsilon">Epsilon Indi B</option>
+        <option value="wise">WISE 0855</option>
+        <option value="rw">RW Aurigae</option>
+        <option value="r">R Draconis</option>
+    </select>
+
+    <div style="display:flex;gap:15px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:180px;">
+            <label for="ra-input" style="color:#cbd5e1;">
+                Right Ascension (RA)
+            </label>
+            <input id="ra-input" type="number"
+                min="0" max="360" step="any"
+                placeholder="Degrees (0–360)"
+                style="width:100%;padding:12px;
+                box-sizing:border-box;border-radius:8px;">
+        </div>
+
+        <div style="flex:1;min-width:180px;">
+            <label for="dec-input" style="color:#cbd5e1;">
+                Declination (Dec)
+            </label>
+            <input id="dec-input" type="number"
+                min="-90" max="90" step="any"
+                placeholder="Degrees (-90 to 90)"
+                style="width:100%;padding:12px;
+                box-sizing:border-box;border-radius:8px;">
+        </div>
+    </div>
+
+    <button id="search-sky" type="button" style="
+        margin-top:20px;
+        padding:12px 24px;
+        background:#fbbf24;
+        color:#111827;
+        border:none;
+        border-radius:8px;
+        font-weight:bold;
+        cursor:pointer;
+    ">
+        <i class="fas fa-search"></i>
+        Search Observations
+    </button>
+
+    <p id="search-status"
+       role="status"
+       aria-live="polite"
+       style="color:#cbd5e1;margin-top:15px;">
+        Enter coordinates to prepare a sky-region search.
+    </p>
+</div>
+<!-- TIME-LAPSE IMAGE VIEWER -->
+<h2 class="subtitulo-seccion animar">
+    <i class="fas fa-film" style="color:#fbbf24;"></i>
+    SPHEREx Time-Lapse Viewer
+</h2>
+
+<div class="animar" style="
+    background:#111827;
+    border:1px solid #374151;
+    border-radius:14px;
+    padding:24px;
+    margin-bottom:30px;
+    text-align:center;
+">
+    <h3 style="color:white;">
+        Sky Observations Over Time
+    </h3>
+
+    <div id="image-viewer" style="
+        background:#030712;
+        border:1px solid #374151;
+        border-radius:12px;
+        min-height:300px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin:20px 0;
+        overflow:hidden;
+    ">
+        <img id="time-image" alt="SPHEREx observation"
+             style="display:none;max-width:100%;
+                    max-height:500px;object-fit:contain;">
+
+        <p id="viewer-placeholder"
+           style="color:#94a3b8;padding:20px;">
+            No observations loaded yet.
+            Select a sky region to begin.
+        </p>
+    </div>
+
+    <p id="frame-date" style="color:#cbd5e1;">
+        Observation date: Not available
+    </p>
+
+    <div style="
+        display:flex;
+        justify-content:center;
+        gap:12px;
+        flex-wrap:wrap;
+        margin:20px 0;
+    ">
+        <button id="prev-frame" type="button" disabled>
+            <i class="fas fa-backward"></i> Previous
+        </button>
+
+        <button id="play-frames" type="button" disabled>
+            <i class="fas fa-play"></i> Play
+        </button>
+
+        <button id="pause-frames" type="button" disabled>
+            <i class="fas fa-pause"></i> Pause
+        </button>
+
+        <button id="next-frame" type="button" disabled>
+            Next <i class="fas fa-forward"></i>
+        </button>
+    </div>
+
+    <label for="playback-speed" style="color:#cbd5e1;">
+        Playback Speed
+    </label>
+
+    <select id="playback-speed">
+        <option value="2000">0.5x</option>
+        <option value="1000" selected>1x</option>
+        <option value="500">2x</option>
+        <option value="250">4x</option>
+    </select>
+
+    <p id="frame-counter" style="color:#94a3b8;">
+        Frame 0 of 0
+    </p>        
+</div>
+    <!-- SECTION 1: TEMPORAL CHART -->
+
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-chart-line"
+               style="color:#fbbf24;"></i>
+            Signal Evolution Over Time
+        </h2>
+
+        <div class="grid-contenido animar">
+            <div style="
+                width:100%;
+                min-width:0;
+                box-sizing:border-box;
+                padding:20px;
+                background:#111827;
+                border:1px solid #374151;
+                border-radius:14px;
+            ">
+
+                <h3 style="color:#ffffff;">
+                    Barnard's Star — Temporal Analysis
+                </h3>
+
+                <p style="
+                    color:#fbbf24;
+                    font-size:13px;
+                    margin-bottom:20px;
+                ">
+                    Simulated data — not NASA observations
+                </p>
+
+                <div style="overflow-x:auto;">
+                    <svg id="temporal-chart"
+                         viewBox="0 0 760 360"
+                         role="img"
+                         aria-label="Interactive temporal signal chart"
+                         style="
+                            display:block;
+                            width:100%;
+                            min-width:480px;
+                            height:auto;
+                         ">
+                    </svg>
+                </div>
+
+                <p id="chart-info"
+                   aria-live="polite"
+                   style="
+                       color:#cbd5e1;
+                       font-size:13px;
+                       margin-top:15px;
+                   ">
+                    Select a point to view observation details.
+                </p>
+
+            </div>
+        </div>
+
+        <!-- SECTION 2: OBSERVATION LOG -->
+
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-calendar-days"
+               style="color:#fbbf24;"></i>
+            Observation Log
+        </h2>
+
+        <div style="overflow-x:auto;">
+            <table class="tabla-datos animar">
+                <thead>
+                    <tr>
+                        <th>Date (UTC)</th>
+                        <th>Object</th>
+                        <th>Signal Type</th>
+                        <th>Intensity</th>
+                        <th>Duration</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+
+                <tbody id="observation-body">
+                    <tr>
+                        <td colspan="6" class="tabla-vacia">
+                            Loading demonstration data...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 3: IMAGE COMPARISON -->
+
+        <h2 class="subtitulo-seccion animar">
+            <i class="fas fa-arrows-left-right"
+               style="color:#fbbf24;"></i>
+            Before / After Comparison
+        </h2>
+
+        <div class="grid-contenido grid-2">
+
+            <div class="placeholder-box animar">
+                <i class="fas fa-image"></i>
+                <span class="ph-titulo">
+                    Observation — Early Date
+                </span>
+                <span class="ph-nota">
+                    Awaiting validated SPHEREx image
+                </span>
+            </div>
+
+            <div class="placeholder-box animar">
+                <i class="fas fa-image"></i>
+                <span class="ph-titulo">
+                    Observation — Recent Date
+                </span>
+                <span class="ph-nota">
+                    Awaiting validated SPHEREx image
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<script>
+(function () {
+    "use strict";
+
+    // SIMULATED VALUES FOR TESTING ONLY
+    const observations = [
+        { date: "2026-01-01", intensity: 12 },
+        { date: "2026-01-02", intensity: 18 },
+        { date: "2026-01-03", intensity: 15 },
+        { date: "2026-01-04", intensity: 25 },
+        { date: "2026-01-05", intensity: 21 },
+        { date: "2026-01-06", intensity: 30 }
+    ];
+
+    const svg = document.getElementById("temporal-chart");
+    const tbody = document.getElementById("observation-body");
+    const info = document.getElementById("chart-info");
+
+    if (!svg || !tbody || !info) return;
+
+    const NS = "http://www.w3.org/2000/svg";
+
+    function add(tag, attrs, parent = svg, content = "") {
+        const element = document.createElementNS(NS, tag);
+
+        Object.entries(attrs).forEach(([key, value]) => {
+            element.setAttribute(key, value);
+        });
+
+        if (content) element.textContent = content;
+
+        parent.appendChild(element);
+        return element;
+    }
+
+    const left = 75;
+    const right = 720;
+    const top = 55;
+    const bottom = 285;
+    const maxValue = 35;
+
+    const x = i =>
+        left + i * (right - left) /
+        (observations.length - 1);
+
+    const y = value =>
+        bottom - value / maxValue * (bottom - top);
+
+    // CHART TITLE
+    add("text", {
+        x: 380,
+        y: 25,
+        fill: "#ffffff",
+        "font-size": 17,
+        "text-anchor": "middle"
+    }, svg, "Signal Evolution Over Time");
+
+    // GRID AND Y AXIS
+    for (let value = 0; value <= 35; value += 5) {
+        const py = y(value);
+
+        add("line", {
+            x1: left,
+            y1: py,
+            x2: right,
+            y2: py,
+            stroke: "#374151",
+            "stroke-width": 1
+        });
+
+        add("text", {
+            x: 60,
+            y: py + 4,
+            fill: "#cbd5e1",
+            "font-size": 12,
+            "text-anchor": "end"
+        }, svg, String(value));
+    }
+
+    // X AXIS LABELS
+    observations.forEach((obs, i) => {
+        add("text", {
+            x: x(i),
+            y: bottom + 24,
+            fill: "#cbd5e1",
+            "font-size": 11,
+            "text-anchor": "middle"
+        }, svg, obs.date.slice(5));
+    });
+
+    // AXIS TITLES
+    add("text", {
+        x: 380,
+        y: 345,
+        fill: "#cbd5e1",
+        "font-size": 13,
+        "text-anchor": "middle"
+    }, svg, "Observation Date (2026)");
+
+    add("text", {
+        x: 18,
+        y: 170,
+        fill: "#cbd5e1",
+        "font-size": 12,
+        transform: "rotate(-90 18 170)",
+        "text-anchor": "middle"
+    }, svg, "Signal Intensity (arbitrary units)");
+
+    // CONNECT OBSERVATION POINTS
+    const points = observations.map((obs, i) =>
+        `${x(i)},${y(obs.intensity)}`
+    ).join(" ");
+
+    add("polyline", {
+        points: points,
+        fill: "none",
+        stroke: "#fbbf24",
+        "stroke-width": 3,
+        "stroke-linejoin": "round",
+        "stroke-linecap": "round"
+    });
+
+    // INTERACTIVE POINTS
+    observations.forEach((obs, i) => {
+        const circle = add("circle", {
+            cx: x(i),
+            cy: y(obs.intensity),
+            r: 7,
+            fill: "#f59e0b",
+            stroke: "#ffffff",
+            "stroke-width": 2,
+            tabindex: 0,
+            role: "button",
+            "aria-label":
+                `${obs.date}: intensity ${obs.intensity}`,
+            style: "cursor:pointer"
+        });
+
+        function showDetails() {
+            info.textContent =
+                `Observation: ${obs.date} UTC | ` +
+                `Simulated intensity: ${obs.intensity} ` +
+                `(arbitrary units)`;
+        }
+
+        circle.addEventListener("click", showDetails);
+
+        circle.addEventListener("keydown", event => {
+            if (event.key === "Enter" ||
+                event.key === " ") {
+                event.preventDefault();
+                showDetails();
+            }
+        });
+
+        const tooltip = document.createElementNS(NS, "title");
+        tooltip.textContent =
+            `${obs.date}: ${obs.intensity}`;
+        circle.appendChild(tooltip);
+    });
+
+    // POPULATE OBSERVATION TABLE
+    observations.forEach(obs => {
+        const row = document.createElement("tr");
+
+        const values = [
+            obs.date,
+            "Barnard's Star",
+            "Simulated signal",
+            String(obs.intensity),
+            "N/A",
+            "Demonstration only"
+        ];
+
+        values.forEach(value => {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+        });
+
+        tbody.appendChild(row);
+    });
+
+    const loadingRow = tbody.querySelector(".tabla-vacia");
+
+    if (loadingRow) {
+        loadingRow.closest("tr").remove();
+    }
+
+})();
+</script>
+<script>
+(function () {
+    "use strict";
+
+    const objects = {
+        barnard: { ra: 269.4521, dec: 4.6934 },
+        epsilon: { ra: 331.7667, dec: -56.7794 },
+        wise: { ra: 133.795129, dec: -7.245147 },
+        rw: { ra: 76.9567, dec: 30.4014 },
+        r: { ra: 248.1867, dec: 66.6311 }
+    };
+
+    const selector = document.getElementById("object-select");
+    const raInput = document.getElementById("ra-input");
+    const decInput = document.getElementById("dec-input");
+    const searchButton = document.getElementById("search-sky");
+    const status = document.getElementById("search-status");
+
+    if (!selector || !raInput || !decInput ||
+        !searchButton || !status) return;
+
+    selector.addEventListener("change", function () {
+        const selected = objects[selector.value];
+
+        if (selected) {
+            raInput.value = selected.ra;
+            decInput.value = selected.dec;
+            status.textContent =
+                "Coordinates loaded. Ready to search observations.";
+        } else {
+            raInput.value = "";
+            decInput.value = "";
+            status.textContent =
+                "Enter custom coordinates to search.";
+        }
+    });
+
+    searchButton.addEventListener("click", function () {
+        const ra = Number(raInput.value);
+        const dec = Number(decInput.value);
+
+        if (
+            raInput.value.trim() === "" ||
+            decInput.value.trim() === "" ||
+            !Number.isFinite(ra) ||
+            !Number.isFinite(dec) ||
+            ra < 0 || ra >= 360 ||
+            dec < -90 || dec > 90
+        ) {
+            status.textContent =
+                "Please enter valid RA (0 to <360) and Dec (-90 to 90).";
+            return;
+        }
+
+        status.textContent =
+            `Selected region: RA ${ra.toFixed(4)}°, ` +
+            `Dec ${dec.toFixed(4)}°. ` +
+            "Image search will be available when " +
+            "the SPHEREx data service is connected.";
+    });
+})();
+</script>
+<script>
+(function () {
+    "use strict";
+
+    // Real observations will be added here
+    // after FITS data processing and validation.
+    const frames = [];
+
+    const image = document.getElementById("time-image");
+    const placeholder = document.getElementById("viewer-placeholder");
+    const dateLabel = document.getElementById("frame-date");
+    const counter = document.getElementById("frame-counter");
+    const previous = document.getElementById("prev-frame");
+    const play = document.getElementById("play-frames");
+    const pause = document.getElementById("pause-frames");
+    const next = document.getElementById("next-frame");
+    const speed = document.getElementById("playback-speed");
+
+    if (!image || !placeholder || !dateLabel ||
+        !counter || !previous || !play ||
+        !pause || !next || !speed) return;
+
+    let currentFrame = 0;
+    let timer = null;
+
+    function stopPlayback() {
+        if (timer !== null) {
+            clearInterval(timer);
+            timer = null;
+        }
+    }
+
+    function showFrame(index) {
+        if (frames.length === 0) {
+            image.style.display = "none";
+            placeholder.style.display = "block";
+            placeholder.textContent =
+                "No validated SPHEREx observations loaded.";
+            dateLabel.textContent =
+                "Observation date: Not available";
+            counter.textContent = "Frame 0 of 0";
+            return;
+        }
+
+        currentFrame =
+            (index + frames.length) % frames.length;
+
+        const frame = frames[currentFrame];
+
+        image.src = frame.url;
+        image.style.display = "block";
+        placeholder.style.display = "none";
+
+        dateLabel.textContent =
+            "Observation date: " + frame.date;
+
+        counter.textContent =
+            `Frame ${currentFrame + 1} of ${frames.length}`;
+    }
+
+    function startPlayback() {
+        if (frames.length < 2) return;
+
+        stopPlayback();
+
+        timer = setInterval(function () {
+            showFrame(currentFrame + 1);
+        }, Number(speed.value));
+    }
+
+    previous.addEventListener("click", function () {
+        stopPlayback();
+        showFrame(currentFrame - 1);
+    });
+
+    next.addEventListener("click", function () {
+        stopPlayback();
+        showFrame(currentFrame + 1);
+    });
+
+    play.addEventListener("click", startPlayback);
+    pause.addEventListener("click", stopPlayback);
+
+    speed.addEventListener("change", function () {
+        if (timer !== null) startPlayback();
+    });
+
+    const ready = frames.length > 1;
+
+    previous.disabled = !ready;
+    play.disabled = !ready;
+    pause.disabled = !ready;
+    next.disabled = !ready;
+
+    showFrame(0);
+})();
+</script>
+{% endblock %}
