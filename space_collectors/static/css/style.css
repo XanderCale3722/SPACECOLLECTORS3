@@ -919,3 +919,144 @@ body {
     border-radius: 12px;
     display: block;
 }
+
+/* ==========================================
+   ASTRONOMICAL IMAGE GALLERY
+========================================== */
+
+.galeria-descripcion {
+    color: #a1a1aa;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 25px;
+    line-height: 1.7;
+}
+
+.galeria-imagenes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin-bottom: 45px;
+}
+
+.galeria-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #151522;
+    border: 1px solid rgba(167, 139, 250, 0.16);
+    cursor: pointer;
+    transition: transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.galeria-item:hover {
+    transform: translateY(-5px);
+    border-color: rgba(167, 139, 250, 0.6);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.15);
+}
+
+.galeria-item img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.galeria-item:hover img {
+    transform: scale(1.06);
+}
+
+.galeria-info {
+    padding: 18px;
+    background: #151522;
+    position: relative;
+    z-index: 1;
+}
+
+.galeria-categoria {
+    color: #a78bfa;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+}
+
+.galeria-info h3 {
+    color: #f4f4f5;
+    font-size: 17px;
+    margin: 9px 0 6px;
+}
+
+.galeria-info p {
+    color: #9292a5;
+    font-size: 12px;
+    margin: 0;
+}
+
+/* ==========================================
+   IMAGE VIEWER
+========================================== */
+
+.visor-imagen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(5, 5, 15, 0.95);
+    backdrop-filter: blur(12px);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.visor-imagen.activo {
+    display: flex;
+}
+
+.visor-imagen img {
+    max-width: 90%;
+    max-height: 78vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+}
+
+.visor-imagen p {
+    color: #c4b5fd;
+    margin-top: 18px;
+    font-size: 15px;
+}
+
+.visor-cerrar {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    color: white;
+    background: transparent;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.visor-cerrar:hover {
+    color: #a78bfa;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 700px) {
+    .galeria-imagenes {
+        grid-template-columns: 1fr;
+    }
+
+    .galeria-item img {
+        height: 230px;
+    }
+
+    .visor-imagen img {
+        max-width: 100%;
+    }
+}
