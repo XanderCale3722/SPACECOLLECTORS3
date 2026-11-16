@@ -43,39 +43,54 @@
         
 <div class="grid-contenido grid-3">
 
-    <button class="placeholder-box animar imagen-astronomica"
-        data-name="Astronomical Object 01"
-        data-description="Discover the characteristics and scientific information of this astronomical observation."
-        data-date="Observation date: 2025-05-12T00:33:40.108"
-        data-coordinates="Coordinates: RA / DEC (grados)
-173.7884 / -31.5483">
+    
+<button class="placeholder-box animar imagen-astronomica"
+    data-name="Astronomical Object 01"
+    data-description="Discover the characteristics and scientific information of this astronomical observation."
+    data-date="Observation date: 2025-05-12T00:33:40.108"
+    data-coordinates="Coordinates: RA / DEC (degrees) 173.7884 / -31.5483"
+    data-image="{{ url_for('static', filename='img/image01.png') }}">
 
-        <i class="fas fa-satellite"></i>
-        <span class="ph-titulo">Astronomical Object 01</span>
-        <span class="ph-nota">Coming soon</span>
-    </button>
+    <img src="{{XanderCale3722/SPACECOLLECTORS3/space_collectors/static/img/data/sky_para_subir/static/img/sky/level2_2025W20_1C_0003_3D3_spx_l2b-v27-2026-198_01_IMAGE.png}}"
+         alt="Astronomical Object 01"
+         class="gallery-image">
 
-    <button class="placeholder-box animar imagen-astronomica"
-        data-name="Astronomical Object 02"
-        data-description="Explore this astronomical observation and learn more about the objects captured by SPHEREx."
-        data-date="Observation date: Pending"
-        data-coordinates="Coordinates: Pending">
+    <span class="ph-titulo">Astronomical Object 01</span>
+    <span class="ph-nota">Explore observation</span>
+</button>
 
-        <i class="fas fa-star"></i>
-        <span class="ph-titulo">Astronomical Object 02</span>
-        <span class="ph-nota">Coming soon</span>
-    </button>
 
-    <button class="placeholder-box animar imagen-astronomica"
-        data-name="Astronomical Object 03"
-        data-description="Discover new details about the universe through astronomical observations."
-        data-date="Observation date: Pending"
-        data-coordinates="Coordinates: Pending">
+<button class="placeholder-box animar imagen-astronomica"
+    data-name="Astronomical Object 02"
+    data-description="Discover the characteristics and scientific information of this astronomical observation."
+    data-date="Observation date: 2025-05-12T00:33:40.108"
+    data-coordinates="Coordinates: RA / DEC (degrees) 173.7884 / -31.5483"
+    data-image="{{ url_for('static', filename='img/image01.png') }}">
 
-        <i class="fas fa-meteor"></i>
-        <span class="ph-titulo">Astronomical Object 03</span>
-        <span class="ph-nota">Coming soon</span>
-    </button>
+    <img src="{{ url_for('static', filename='img/image01.png') }}"
+         alt="Astronomical Object 01"
+         class="gallery-image">
+
+    <span class="ph-titulo">Astronomical Object 01</span>
+    <span class="ph-nota">Explore observation</span>
+</button>
+
+   
+<button class="placeholder-box animar imagen-astronomica"
+    data-name="Astronomical Object 03"
+    data-description="Discover the characteristics and scientific information of this astronomical observation."
+    data-date="Observation date: 2025-05-12T00:33:40.108"
+    data-coordinates="Coordinates: RA / DEC (degrees) 173.7884 / -31.5483"
+    data-image="{{ url_for('static', filename='img/image01.png') }}">
+
+    <img src="{{ url_for('static', filename='img/image01.png') }}"
+         alt="Astronomical Object 01"
+         class="gallery-image">
+
+    <span class="ph-titulo">Astronomical Object 01</span>
+    <span class="ph-nota">Explore observation</span>
+</button>
+
 
 </div>
 
@@ -85,12 +100,11 @@
 
         <button class="modal-close" id="closeModal">&times;</button>
 
-        <div class="modal-image-container">
-            <div class="modal-placeholder" id="modalPlaceholder">
-                <i class="fas fa-satellite"></i>
-                <p>ASTRONOMICAL IMAGE COMING SOON</p>
-            </div>
-        </div>
+        
+<div class="modal-image-container">
+    <img id="modalImage" src="" alt="Astronomical observation">
+</div>
+
 
         <div class="modal-information">
 

@@ -186,3 +186,85 @@ window.addEventListener('scroll', () => {
         navbar.style.boxShadow   = 'none';
     }
 }, { passive: true }); // passive: true mejora el rendimiento del scroll
+
+
+// ===========================================================
+//  6. GALERÍA DE IMÁGENES ASTRONÓMICAS
+//  Controla las imágenes y la ventana de información (modal)
+// ===========================================================
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const cards = document.querySelectorAll('.imagen-astronomica');
+    const modal = document.getElementById('imageModal');
+    const closeButton = document.getElementById('closeModal');
+    const modalImage = document.getElementById('modalImage');
+
+    // Verificamos que los elementos existan
+    if (!modal || !closeButton || !modalImage) return;
+
+    // Al hacer clic en una tarjeta
+    cards.forEach(card => {
+
+        card.addEventListener('click', function () {
+
+            // Información de la observación
+            document.getElementById('modalTitle').textContent =
+                card.dataset.name;
+
+            document.getElementById('modalDescription').textContent =
+                card.dataset.description;
+
+            document.getElementById('modalDate').textContent =
+                card.dataset.date;
+
+            document.getElementById('modalCoordinates').textContent =
+                card.dataset.coordinates;
+
+            // Imagen correspondiente a la tarjeta
+            modalImage.src = card.dataset.image;
+            modalImage.alt = card.dataset.name;
+
+            // Mostrar ventana emergente
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+
+            document.body.style.overflow = 'hidden';
+        });
+
+    });
+
+    // Función para cerrar el modal
+    function closeModal() {
+
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+
+        document.body.style.overflow = '';
+
+        // Limpiar la imagen al cerrar
+        modalImage.src = '';
+    }
+
+    // Botón de cerrar
+    closeButton.addEventListener('click', closeModal);
+
+    // Cerrar al hacer clic fuera de la ventana
+    modal.addEventListener('click', function(event) {
+
+        if (event.target === modal) {
+            closeModal();
+        }
+
+    });
+
+    // Cerrar al presionar ESC
+    document.addEventListener('keydown', function(event) {
+
+        if (event.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+
+    });
+
+});
