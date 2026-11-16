@@ -256,12 +256,12 @@
             <table class="tabla-datos animar">
                 <thead>
                     <tr>
-                        <th>Date (UTC)</th>
-                        <th>Object</th>
-                        <th>Signal Type</th>
-                        <th>Intensity</th>
-                        <th>Duration</th>
-                        <th>Notes</th>
+                          <th>Date (UTC)</th>
+                          <th>Observation</th>
+                          <th>Observation ID</th>
+                          <th>Detector</th>
+                          <th>RA / Dec (°)</th>
+                          <th>Duration (s)</th>
                     </tr>
                 </thead>
 
@@ -755,6 +755,59 @@
         status.textContent =
             "Preset loaded: " + d.nombre + ". Ready to search observations.";
     });
+})();
+</script>
+<script>
+(function () {
+    "use strict";
+
+    // 2 del 12 de mayo, 2 del 16 de junio y 2 del 21 de julio de 2025
+    const WANTED = [
+        "SPS_122980_S12", "SPS_276628_S12",
+        "SPS_121358_S12", "SPS_137051_S12",
+        "SPS_135347_S12", "SPS_059894_S12"
+    ];
+
+    const tbody = document.getElementById("observation-body");
+    if (!tbody) return;
+
+    tbody.innerHTML =
+        '<tr><td colspan="6" class="tabla-vacia">Loading observations...</td></tr>';
+
+    fetch("{{ url_for('static', filename='data/sky_data.json') }}")
+        .then(r => r.json())
+        .then(json => {
+            const rows = WANTED
+                .map(name => json.find(d => d.nombre === name))
+                .filter(Boolean)
+                .sort((a, b) => Date.parse(a.fecha_obs) - Date.parse(b.fecha_obs));
+
+            tbody.innerHTML = "";
+
+            rows.forEach(d => {
+                const seconds =
+                    (Date.parse(d.final.fecha) - Date.parse(d.inicio.fecha)) / 1000;
+                const values = [
+                    d.fecha_obs.replace("T", " ").slice(0, 19),
+                    d.nombre,
+                    d.obsid,
+                    d.detector,
+                    d.ra.toFixed(4) + " / " + d.dec.toFixed(4),
+                    seconds.toFixed(1)
+                ];
+                const row = document.createElement("tr");
+                values.forEach(v => {
+                    const cell = document.createElement("td");
+                    cell.textContent = v;
+                    row.appendChild(cell);
+                });
+                tbody.appendChild(row);
+            });
+        })
+        .catch(() => {
+            tbody.innerHTML =
+                '<tr><td colspan="6" class="tabla-vacia">Could not load sky_data.json.</td></tr>';
+        });
 })();
 </script>
 {% endblock %}
